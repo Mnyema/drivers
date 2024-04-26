@@ -20,8 +20,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
 import NotInterestedIcon from '@mui/icons-material/NotInterested';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
+import { Card } from 'react-bootstrap';
+import InfoIcon from '@mui/icons-material/Info';
+import Loader from '../Components/Loader';
 
 function MyReservations() {
+  const [isLoading, setIsLoading] = useState(false);
   const [bookings, setBookings] = useState([]);
   const [cancelledBookings, setCancelledBookings] = useState([]);
   const { user } = useContext(UserContext);
@@ -34,6 +38,7 @@ const [currentBooking, setCurrentBooking] = useState(null);
 // ...
 
 const handleCancelReservation = () => {
+  setIsLoading(true);
     fetch(`https://rsallies.azurewebsites.net/api/booking/${currentBooking.id}`, {
       method: 'DELETE',
     })
@@ -47,9 +52,11 @@ const handleCancelReservation = () => {
         handleCloseDialog();
         setOpenSnackbar(true);
         setCancelledBookings(prevState => [...prevState, currentBooking.id]);
+        setIsLoading(false);
       })
       .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);
+        setIsLoading(false);
       });
   };
   
@@ -75,6 +82,7 @@ const handleOpenDialog = (booking) => {
     
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(`https://rsallies.azurewebsites.net/api/user/${user.id}/bookings`)
       .then(response => {
         if (!response.ok) {
@@ -84,12 +92,16 @@ const handleOpenDialog = (booking) => {
       })
       .then(data => {
         console.log(data.value);
-        setBookings(data.value)
+        setBookings(data.value);
+        setIsLoading(false);
     })
       .catch(error => console.error('There was an error!', error));
+      setIsLoading(false);
   }, []);
 
   return (
+    <div >
+      <Loader isOpen={isLoading} />
     <div className='myreservation-container' style={{ display:'flex', backgroundColor:'rgb(241, 245, 249)'}}>
       <div style={{ flex:'1'}}>
         <Sidebar/>
@@ -116,9 +128,16 @@ const handleOpenDialog = (booking) => {
            </Alert>
           </Snackbar> 
         
+<div style={{width:'90%'}}>
+  <Card>
+    <Card.Body className='bg-blue-200 info-card font-mono text-sm' style={{width:'100%', height:'50px', borderRadius:'5px', display:'flex', alignItems:'center', borderColor:'blue'}}>
+    <span className='mr-2'><InfoIcon /></span> Kindly carry your valid NIDA card and be at the venue 30 minutes before the session starts.
+      </Card.Body>
+  </Card>
+</div>
 
-<TableContainer component={Paper} style={{width:'90%', boxShadow:'0 0 10px rgba(0,0,0,0.1)'}}
- className='mt-5'>
+{/* <TableContainer component={Paper} style={{width:'90%', boxShadow:'0 0 10px rgba(0,0,0,0.1)'}}
+ className='mt-3'>
   <Table>
     <TableHead className='font-bold'>
     <TableRow >
@@ -130,7 +149,9 @@ const handleOpenDialog = (booking) => {
             <TableCell style={{fontWeight:'bold'}}>Session Time</TableCell>
           </>
         ) : (
-          <TableCell style={{fontWeight:'bold'}}><span><AutorenewIcon/> </span>You don't have any reservation yet</TableCell>
+          <TableCell style={{fontWeight:'bold'}}>
+            <span><AutorenewIcon/></span>You don't have any reservation yet
+          </TableCell>
         )}
       </TableRow>
     </TableHead>
@@ -148,8 +169,8 @@ const handleOpenDialog = (booking) => {
             <TableCell>{time}</TableCell>
             <TableCell>
             {!cancelledBookings.includes(booking.id) && (
-                <button  className='btn btn-outline-danger' onClick={() => handleOpenDialog(booking)}>
-                  Cancel <span> <NotInterestedIcon/></span>
+                <button  className='btn btn-outline-danger btn-sm' onClick={() => handleOpenDialog(booking)}>
+                  Cancel <span> <NotInterestedIcon fontSize='sm'/></span>
                 </button>
             )}
             </TableCell>
@@ -158,13 +179,82 @@ const handleOpenDialog = (booking) => {
       })}
     </TableBody>
   </Table>
+</TableContainer> */}
+
+
+<TableContainer className='mt-3' component={Paper} style={{width:'90%', boxShadow:'0 0 10px rgba(0,0,0,0.1)'}}>
+    <Table>
+    <TableHead>
+            {bookings.length === 0 && (
+                <TableRow>
+                    <TableCell>
+                        <span><AutorenewIcon/></span>You don't have any reservation yet
+                    </TableCell>
+                </TableRow>
+            )}
+        </TableHead>
+        <TableBody>
+            {Array.isArray(bookings) && bookings.map(booking => {
+                const sessionDate = new Date(booking.sessionDate);
+                const date = sessionDate.toLocaleDateString();
+                const time = sessionDate.toLocaleTimeString();
+
+                return (
+                    <>
+                        <TableRow key={booking.id + 'venueName'}>
+                            <TableCell>
+                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                    <span className='font-semibold'>Venue Name:</span>
+                                    <span>{booking.venueName}</span>
+                                </div>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow key={booking.id + 'venueAddress'}>
+                            <TableCell>
+                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                    <span className='font-semibold'>Venue Address:</span>
+                                    <span>{booking.venueAddress}</span>
+                                </div>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow key={booking.id + 'date'}>
+                            <TableCell>
+                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                    <span className='font-semibold'>Date:</span>
+                                    <span>{date}</span>
+                                </div>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow key={booking.id + 'time'}>
+                            <TableCell>
+                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                    <span className='font-semibold'>Time:</span>
+                                    <span>{time}</span>
+                                </div>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow key={booking.id + 'cancel'}>
+                            <TableCell style={{display:'flex', justifyContent:'flex-end'}}>
+                                {!cancelledBookings.includes(booking.id) && (
+                                    <button  className='btn btn-outline-danger btn-sm' onClick={() => handleOpenDialog(booking)}>
+                                        Cancel <span> <NotInterestedIcon fontSize='sm'/></span>
+                                    </button>
+                                )}
+                            </TableCell>
+                        </TableRow>
+                    </>
+                )
+            })}
+        </TableBody>
+    </Table>
 </TableContainer>
+
 
 <Dialog open={openDialog} onClose={handleCloseDialog}>
   <DialogTitle>Confirm Cancelling Reservation</DialogTitle>
   <DialogContent>
   <DialogContentText>
-      Are you sure you want to cancel the reservation for <span>{currentBooking?.venueName} </span>
+      Are you sure you want to cancel the reservation made for <span>{currentBooking?.venueName} </span>
        in <span className='text-warning'>{currentBooking?.venueAddress} </span>
        on <span className='text-warning'>{new Date(currentBooking?.sessionDate).toLocaleDateString()} </span> 
        at <span className='text-warning'>{new Date(currentBooking?.sessionDate).toLocaleTimeString()}</span>?
@@ -182,6 +272,7 @@ const handleOpenDialog = (booking) => {
   </DialogActions>
 </Dialog>
       </div>
+    </div>
     </div>
   );
 }

@@ -20,3 +20,9 @@ code {
   color: orange;
   border-bottom: 2px solid orange;
 }
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}

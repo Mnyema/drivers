@@ -86,10 +86,7 @@ function Dashboard() {
                     
                     <div className='tips-div' style={{display:'flex', flexDirection:'column'}}>
                         
-   <div style={{flex:'1'}}>
-<p className='ml-5 text-slate-400 '>- Road Safety Tips -</p>
-   </div>
-<div className='carousel-div' style={{flex:'8',display:'flex', alignItems:'center',justifyContent:'center'}}> 
+<div className='carousel-div' style={{display:'flex', alignItems:'center',justifyContent:'center'}}> 
 <Carousel style={{height:'95%', width:'95%', backgroundColor:'', }}>
 <Carousel.Item style={{ height:'180px',position:'relative', paddingBottom: '50px'}}>
     <div style={{
@@ -201,16 +198,17 @@ function Dashboard() {
 </div>
 
                     </div>
-                    <div className='other-div 'style={{display:'flex', flexDirection:'column'}}>
-                    <div className='ml-4'><p style={{flex:'1', margin:'0', padding:'0'}} className='text-slate-400'>
-                      - Documents -</p></div>
+                    <div className='other-div'style={{display:'flex', flexDirection:'column'}}>
+                      <div className='ml-4'><p style={{flex:'1', margin:'0', padding:'0'}} className='text-slate-400'>
+                      - Documents -</p>
+                      </div>
                     <div className='docs-div' style={{flex:'5',margin:'0', padding:'0', display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center', gap:'5px', marginRight:'5px'}}>
                     <div className='doc-one bg-white' 
                     style={{flex:'1',height:'90%', display:'flex', flexDirection:'row', borderColor:"blue", alignItems:'center', justifyContent:'center'}}>
                       <div className='img-div ' style={{flex:'1', height:'90%', display:'flex', alignItems:'center',justifyContent:'center'}}>
                         <img src={Law} alt='' style={{height:'70%', width:'70%', borderRadius:'5px'}}/>
                       </div>
-                      <div className='doc-div ' style={{flex:'2', height:'90%', display:'flex', alignItems:'center',justifyContent:'center'}}>
+                      <div className='doc-div ' style={{flex:'2', height:'80%', display:'flex', alignItems:'center',justifyContent:'center'}}>
                         <a className='text-sm mr-1' href='https://www.latra.go.tz/uploads/documents/sw-1676102731-AMENDMENT.pdf' style={{textDecoration:'none', color:'inherit'}}>
                           Amendment to various Regulations, 2021
                         </a>
@@ -221,7 +219,7 @@ function Dashboard() {
                       <div className='img-div ' style={{flex:'1', height:'90%', display:'flex', alignItems:'center',justifyContent:'center'}}>
                         <img src={Driving} alt='' style={{height:'70%', width:'70%', borderRadius:'5px'}}/>
                       </div>
-                      <div className='doc-div ' style={{flex:'2', height:'90%', display:'flex', alignItems:'center',justifyContent:'center'}}>
+                      <div className='doc-div ' style={{flex:'2', height:'80%', display:'flex', alignItems:'center',justifyContent:'center'}}>
                         <a className='text-sm mr-1' href='https://tmscheck.com/driving-licence-renewal/' style={{textDecoration:'none', color:'inherit'}}>
                         Driving Licence Renewal in Tanzania | A Complete Guide
                         </a>
@@ -232,7 +230,7 @@ function Dashboard() {
                       <div className='img-div ' style={{flex:'1', height:'90%', display:'flex', alignItems:'center',justifyContent:'center'}}>
                         <img src={Tanzania} alt='' style={{height:'70%', width:'70%', borderRadius:'5px'}}/>
                       </div>
-                      <div className='doc-div ' style={{flex:'2', height:'90%', display:'flex', alignItems:'center',justifyContent:'center'}}>
+                      <div className='doc-div ' style={{flex:'2', height:'80%', display:'flex', alignItems:'center',justifyContent:'center'}}>
                         <a className='text-sm mr-1' href='https://www.mow.go.tz/uploads/documents/sw-1634716378-A%20Guide%20to%20Traffic%20Signing%202009%20V21.pdf' style={{textDecoration:'none', color:'inherit'}}>
                           A Guide to Traffic Signs, Tanzania
                         </a>

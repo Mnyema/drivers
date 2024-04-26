@@ -1,3 +1,4 @@
+/* * { border: 1px solid red; } */
 .home-div{
   background-color: rgba(0, 0, 0, 0.3); 
   
@@ -5,17 +6,25 @@
   width: 100vw;
   box-sizing: border-box;
 }
+
 .nav-item a{
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav a{
   color: inherit;
   text-decoration: none;
 }
 
 
-.nav-item .active-link {
-  border-bottom: 2px solid orange;
-  color: orange;
-  font-weight: bold;
-}
 .nav-item:hover {
   border-bottom: 3px solid orange;
 
@@ -23,12 +32,17 @@
 .home-content {
   height: calc(100vh - 56px);
   position: fixed;
-  width: 100vw;
+  width: 100%;
   margin-top: 0%;
   
   /* box-shadow: 0 0 10px rgba(80, 79, 79, 0.8); shadow effect */ 
 }
-
+@media (max-width: 768px) {
+  .home-content {
+    height:100vh;
+    width: 100%;
+  }
+}
 
 @keyframes slide {
   0% {
@@ -274,4 +288,7 @@
 }
 .doc-one a:hover{
   background-color: rgb(241 245 249);
+}
+.profile-icon{
+  color: rgba(2, 22, 87, 0.8);
 }

@@ -15,6 +15,7 @@ import CreateAccount from './Pages/CreateAccount';
 import VenueAndItsSession from './Pages/VenueAndItsSession';
 import Login from './Pages/Login';
 import Profile from './Pages/Profile';
+import Loader from './Components/Loader';
 import {BrowserRouter as Router, Route, Routes, useLocation} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -37,6 +38,7 @@ function RoutesWithSidebar() {
         <Route path="/login" element={<Login />} />
         <Route path='/venue-and-session' element={<VenueAndItsSession/>} />
         <Route path="/profile" element={<Profile />} />
+        <Route path='/loader' element={<Loader/>} />
       </Routes>
     </>
   );
@@ -46,33 +48,7 @@ function RoutesWithSidebar() {
 function App() {
    const [user, setUser] = useState(null);
    
-  //  const handleLogin = (phone, password) => {
-  //   fetch('https://rsallies.azurewebsites.net/api/user/authenticate', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ phone, password }),
-  //   })
-  //   .then(response => {
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-  //     return response.json();
-  //   })
-  //   .then(data => {
-  //     if (data.isSuccess) {
-  //       console.log(data);
-  //       setUser(data.value);
-  //     } else {
-  //       // Handle login failure...
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.error('Error:', error);
-  //     // Handle error...
-  //   });
-  // };
+
 
   return (
     <div className="App">

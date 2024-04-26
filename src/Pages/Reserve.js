@@ -128,7 +128,7 @@ class Reserve extends Component{
                     <select className='form-control' id='region' name='region' 
                     required
                     onChange={e => this.setState({ selectedRegion: e.target.value })}>
-                        <option value='' className=''>Selrct </option>
+                        <option value='' className=''> </option>
                         {this.state.regionsInTanzania.map(region => (
                             <option key={region} value={region}>{region}</option>
                         ))}

@@ -8,6 +8,7 @@ import { Snackbar } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import axios from 'axios';
 import { UserContext } from '../Components/UserContext';
+import Loader from '../Components/Loader';
 
 function Login() {
     const myRef = useRef(null);
@@ -15,6 +16,7 @@ function Login() {
     const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
     const {setUser} = React.useContext(UserContext);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -22,6 +24,7 @@ function Login() {
         const phone = document.getElementById('phone').value;
         const password = document.getElementById('password').value;
         
+        setIsLoading(true);
         fetch('https://rsallies.azurewebsites.net/api/user/authenticate', {
             method: 'POST',
             headers: {
@@ -37,19 +40,23 @@ function Login() {
           })
           .then(data => {
             console.log(data);
+            setIsLoading(false);
             if (data.isSuccess) {
               localStorage.setItem('user', JSON.stringify(data.value));
               setUser(data.value);
+              setIsLoading(false);
               navigate('/dashboard');
             } else {
               setIsSnackbarOpen(true);
               setErrorMessage('Invalid phone number or password.');
+              setIsLoading(false);
             }
           })
         .catch((error) => {
             console.error('Error:', error);
           setIsSnackbarOpen(true);
           setErrorMessage('An error has occurred.');
+          setIsLoading(false);
         });
     }
 
@@ -69,6 +76,8 @@ function Login() {
       }, [myRef]);
 
   return (
+    <div style={{position:'relative'}}>
+      <Loader isOpen={isLoading}/>
     <div className='login' ref={myRef}>
         <div className='login-container '>
         <div className='login-left-column'>
@@ -112,6 +121,8 @@ function Login() {
 
         </div>
 
+        </div>
+      
         </div>
   );
 }

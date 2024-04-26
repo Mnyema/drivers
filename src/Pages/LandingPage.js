@@ -6,14 +6,18 @@ import img1 from '../Images/image1.jpg';
 import img2 from '../Images/image2.jpg';
 import img3 from '../Images/pexels-omar-ramadan-1739260-6743568.jpg';
 import img4 from '../Images/pexels-carlos-oliva-3586966.jpg'
-import img5 from '../Images/pexels-ruiyang-zhang-915467-3717242.jpg'
+import img5 from '../Images/pexels-ruiyang-zhang-915467-3717242.jpg';
+import Loader from '../Components/Loader';
 
 function LandingPage() {
   const [currentImage, setCurrentImage] = useState(img1);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const redirectToCreateAccount = () => {
+    setIsLoading(true);
     navigate('/create-account');
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -28,7 +32,7 @@ function LandingPage() {
   }, []);
 
   return (
-    <div className="home-content mt-0 font-serif" style={{ 
+    <div className="home-content mt-0 font-serif " style={{ 
       
         backgroundImage: `url(${currentImage})`, 
         backgroundSize: 'cover',

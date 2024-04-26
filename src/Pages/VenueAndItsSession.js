@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
 import Sidebar from '../Components/Sidebar';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -18,7 +18,8 @@ import { Snackbar, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
 import { UserContext } from '../Components/UserContext';
-
+import PlaceIcon from '@mui/icons-material/Place';
+import Loader from '../Components/Loader';
 
 
 function VenueAndItsSession() {
@@ -28,6 +29,8 @@ function VenueAndItsSession() {
    const queryParams = new URLSearchParams(location.search);
     const venueId = queryParams.get('venueId');
     const [sessions, setSessions] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
     const startDate = new Date();
     // Set the hours, minutes, and seconds to 00
        startDate.setUTCHours(0, 0, 0, 0);
@@ -67,6 +70,7 @@ function VenueAndItsSession() {
     
 
       const handleClickOpen = (id) => {
+        setIsLoading(true);
         fetch(`https://rsallies.azurewebsites.net/api/session/${id}`) 
           .then(response => {
             if (!response.ok) {
@@ -77,31 +81,36 @@ function VenueAndItsSession() {
           .then(data => {
             console.log('Session data:', data);
             setSessionId(id); 
-            
+            setSessionData(data);
             setOpen(true);
+            setIsLoading(false);
           })
           .catch(error => console.error('Error:', error));
+          setIsLoading(false);
       };
       
       const handleClose = () => {
         setOpen(false);
+        setSessionData(null);
       };
 
       
       
       useEffect(() => {
-      
+        setIsLoading(true);
         fetch(`https://rsallies.azurewebsites.net/api/sessions?venueId=${venueId}`)
           .then(response => response.json())
           .then(data =>{
             console.log(data.sessionId);
             setSessionId(data.sessionId)
+            setIsLoading(false);
       });
       }, [venueId]);
 
    
 
    useEffect(() => {
+    setIsLoading(true);
     fetch(`https://rsallies.azurewebsites.net/api/venue/${venueId}`)
         .then(response => {
             if (!response.ok) {
@@ -111,6 +120,7 @@ function VenueAndItsSession() {
             })
         .then(data => {
             setVenue(data.value);
+            setIsLoading(false);
         })
         fetch(`https://rsallies.azurewebsites.net/api/venue/${venueId}/sessions/from/${formattedStartDateTime}/to/${formattedEndDateTime}`)
         .then(response => {
@@ -119,58 +129,98 @@ function VenueAndItsSession() {
             }
             return response.json();
           })
-        .then(data => setSessions(data.value))
+        .then(data => {
+          setSessions(data.value);
+          setIsLoading(false);
+   })
         .catch(error => console.error('Error:', error));
+        setIsLoading(false);
 }, [venueId]);
 
- const handleBook = () => {
+const handleBook = () => {
   console.log('Book clicked, sessionId:', sessionId);
-        const data = {
+  setIsLoading(true);
+  fetch(`https://rsallies.azurewebsites.net/api/user/${user.id}/bookings`)
+    .then(response => {
+      if (response.status === 404) {
+        // The user has no bookings, so proceed with the booking
+        return { value: [] };
+      }
+      if (!response.ok) {
+        throw new Error('No bookings found for this user');
+      }
+      return response.json();
+    })
+    .then(data => {
+      const bookings = data.value;
+      const now = new Date();
+      const hasActiveBooking = bookings.some(booking => new Date(booking.sessionDate) > now);
+      console.log('Has active booking:', hasActiveBooking); 
+      if (Array.isArray(bookings)) {
+        const hasActiveBooking = bookings.some(booking => new Date(booking.sessionDate) > now);
+        console.log('Has active booking:', hasActiveBooking); 
+        if (hasActiveBooking) {
+          // The user has an active booking
+          alert('Failed to book: You already have an active booking.');
+          console.error('Failed to book: You already have an active booking.');
+          setIsLoading(false);
+        } else {
+          console.log('Booking the session...');
+          const bookingData = {
             userId: user.id,
             sessionId: sessionId,
             bookingDate: new Date().toISOString(),
             status: "confirmed"
           };
-          console.log(JSON.stringify(data));
-        
-  fetch('https://rsallies.azurewebsites.net/api/bookings', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  .then(response => {
-    if (!response.ok) {
-        return response.text().then(text => {
-          throw new Error(`Network response was not ok: ${text}`);
-        });
+          console.log(JSON.stringify(bookingData));
+          setIsLoading(true);
+          fetch('https://rsallies.azurewebsites.net/api/bookings', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bookingData)
+          })
+          .then(response => {
+            if (!response.ok) {
+              return response.text().then(text => {
+                throw new Error(`Network response was not ok: ${text}`);
+              });
+            }
+            return response.json();
+          })
+          .then(bookingData => {
+            // handle success
+            setOpenSnackbar(true);
+            handleClose();
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+        }
       }
-      return response.json();
     })
-  .then(data => {
-    // handle success
-    setOpenSnackbar(true);
-    handleClose();
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-    // handle error
-  });
+    .catch((error) => {
+      console.error('Error:', error);
+      setIsLoading(false);
+    });
 };
 
 if (!venue) {
-    return <div>Loading...</div>;
+   return <Loader/>;
 }
 
     return (
+      <div>
+        {isLoading ? <Loader /> : (
         <div className='venue-container' style={{display:'flex', backgroundColor:'rgb(241, 245, 249)'}}>
             <div style={{ flex:'1'}}>
              <Sidebar/>
             </div>
             <div style={{flex:'3'}}>
             <h3>{venue.name} </h3>
-            <p> {venue.address} </p>
+           <span><PlaceIcon color='info'/> </span> {venue.address} 
 
             <Snackbar
                  open={openSnackbar}
@@ -190,7 +240,7 @@ if (!venue) {
            </Alert>
           </Snackbar> 
 
-            <p>Available Sessions for this month</p>
+            <p className='mt-2'>Available Sessions for this month</p>
         <div>
         <TableContainer component={Paper} style={{width:'90%', boxShadow:'0 0 10px rgba(0,0,0,0.1)'}}>
   <Table aria-label="simple table">
@@ -207,7 +257,7 @@ if (!venue) {
           <TableCell>{new Date(session.sessionDate).toLocaleDateString()}</TableCell>
           <TableCell>{new Date(session.sessionDate).toLocaleTimeString()}</TableCell>
           <TableCell>{session.currentCapacity}</TableCell>
-          <TableCell><button className='btn btn-outline-primary' onClick={() => handleClickOpen(session.id)}  title={`Session ID: ${session.id}`}>
+          <TableCell><button className='btn btn-outline-primary btn-sm' onClick={() => handleClickOpen(session.id)}  title={`Session ID: ${session.id}`}>
             Reserve
             </button></TableCell>
         </TableRow>
@@ -219,12 +269,18 @@ if (!venue) {
 <Dialog open={open} onClose={handleClose}>
   <DialogTitle>Confirm Reservation</DialogTitle>
   <DialogContent>
+  {sessionData && (
+    <>
     <DialogContentText>
-      Are you sure you want to book <span className='text-warning'>{venue.name}</span>  for the session on <span className='text-warning'>{selectedSession && new Date(selectedSession.sessionDate).toLocaleDateString()}</span> at <span className='text-warning'>{selectedSession && new Date(selectedSession.sessionDate).toLocaleTimeString()}</span>?
+      Are you sure you want to book <span className='text-warning'>{venue.name}</span>  for the session on
+       <span className='text-warning'> {new Date(sessionData.value.sessionDate).toLocaleDateString()} </span> 
+       at <span className='text-warning'> {new Date(sessionData.value.sessionDate).toLocaleTimeString()}</span>?
     </DialogContentText><br/>
     <DialogContentText className='text-danger'>
        Note: You can only book one session at a time.
     </DialogContentText>
+    </>
+  )}
   </DialogContent>
   <DialogActions>
     <Button onClick={handleClose} color="primary" variant='outlined'>
@@ -241,6 +297,8 @@ if (!venue) {
             </div>
             </div>
         </div>
+        )}
+    </div>
     );
 }
 
