@@ -10,12 +10,18 @@ import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutli
 import axios from 'axios';
 import { Snackbar } from '@mui/material';
 import Alert from '@mui/material/Alert';
+import Navbar from '../Components/Navbar';
+import Footer from '../Components/Footer';
+import Loader from '../Components/Loader';
 
 function CreateAccount() {
     const myRef = useRef(null);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+    const isMediumScreen = window.matchMedia('(min-width: 768px)').matches;
+    const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+    const [isLoading, setIsLoading] = useState(false);
 
 function validateForm() {
     const firstName = document.getElementById('firstName').value;
@@ -62,6 +68,7 @@ function validateForm() {
 
 
   async function handleSubmit(event) {
+    setIsLoading(true);
     event.preventDefault();
     if (validateForm()) {
       const firstName = document.getElementById('firstName').value;
@@ -88,15 +95,16 @@ function validateForm() {
       if (!response.ok) {
         const message = await response.text();
         throw new Error(message);
+        setIsLoading(false);
       }
-     
-      
+      setIsLoading(false);
       window.location.href = '/login';
       setErrorMessage(''); // Clear the error message
     } catch (error) {
         console.error('Error:',error);
       setErrorMessage(error.message);
       setIsSnackbarOpen(true);
+      setIsLoading(false);
     } 
     // navigate('/dashboard');
     }
@@ -118,16 +126,48 @@ function validateForm() {
       }, [myRef]);
 
     return (
-      <div className='create-account' ref={myRef}>
-        <div className='create-account-container' >
-          <div className='left-column'>
+      <div className='create-account' ref={myRef}
+      style={{ 
+        display:'flex',
+      flexDirection:'column',
+       justifyContent:'center', 
+       alignItems:'center',
+        height:'100vh',
+         width:'100vw',
+         position:'fixed',
+         }}>
+          <div style={{flex:'1', width:'100%', zIndex:'9999'}}>
+        <Navbar/>
+         </div>
+      <div className='create-acc ' style={{ 
+        marginTop: isSmallScreen ? '0' : '5rem',
+        flex: '9',
+       alignItems: 'center',
+        display: 'flex',
+       //  backgroundColor: 'pink',
+         marginTop: '0',
+       justifyContent: 'center',
+       position:'relative',
+      }}>
+        <div className='create-account-container' style={{display:'flex',
+         justifyContent:'center', alignItems:'center',
+         width: isSmallScreen ? '100vw':'80vw',
+         }} >
+          <div className='left-column' style={{display: isSmallScreen ? 'none' : 'block'}}>
             <img src={drivingLicense} alt="Left column image" className="" />
           </div>
-          <div className='right-column'>
+          <div className='right-column ' 
+          style={{height:isSmallScreen ? '100%' : '100%',
+          alignItems: isSmallScreen ? 'center' : 'flex-start',
+          justifyContent: isSmallScreen ? 'center' : 'flex-start',
+        }}>
          <form onSubmit={handleSubmit} className=''> 
-         <div className=''>
+         <div className='' 
+         style={{
+          top: isSmallScreen ? '0' : '0',
+         }}>
 
-         <Snackbar className='w-50 p-10 mb-1'
+         <Snackbar className=' p-10 mb-1' style={{zIndex:'10000', width: isSmallScreen ? '90vw' : '50%',}}
            open={isSnackbarOpen}
           //  autoHideDuration={6000}
            onClose={() => setIsSnackbarOpen(false)}
@@ -138,40 +178,59 @@ function validateForm() {
           </Alert>
           </Snackbar>
 
-            <h1 className='text-3xl font-bold  ml-8 text-white mb-4'>Create Account</h1>
+            <h1 className='text-3xl font-bold  ml-8 text-white mb-4' style={{ textAlign: isSmallScreen ? 'center' : 'left' }}>Create Account</h1>
             <p className='mb-2 ml-7 mb-2 text-white text-xl'> </p>
             <div className='input-container form-floating ml-6'>
-                <input type='text' id='firstName' name='firstName'className='form-control' placeholder='Enter your first name' required />
+                <input type='text' id='firstName' name='firstName'className='form-control' placeholder='Enter your first name' required 
+                style={{width:isSmallScreen? '100%':'90%'}}/>
                 <label htmlFor='firstName'><span><DriveFileRenameOutlineIcon/> </span>First Name</label>
             </div>
             <div className='input-container form-floating ml-6'>
-                <input type='text' id='lastName' name='lastName' className='form-control' placeholder='Enter your surname' required />
+                <input type='text' id='lastName' name='lastName' className='form-control' placeholder='Enter your surname' required
+                style={{width:isSmallScreen? '100%':'90%'}} />
                 <label htmlFor='lastName'><span><DriveFileRenameOutlineIcon/> </span>Last Name</label>
             </div>
             <div className='input-container form-floating ml-6'>
-                <input type='email' id='email' name='email' className='form-control' placeholder='you@gmail.com' />
+                <input type='email' id='email' name='email' className='form-control' placeholder='you@gmail.com'
+                style={{width:isSmallScreen? '100%':'90%'}}  />
                 <label htmlFor='email'><span><EmailIcon/> </span>Email</label>
             </div>
             <div className='input-container form-floating ml-6'>
-                <input type='password' id='password' name='password' className='form-control' placeholder='Enter your password' />
+                <input type='password' id='password' name='password' className='form-control' placeholder='Enter your password'
+                style={{width:isSmallScreen? '100%':'90%'}}  />
                 <label htmlFor='email'><span><LockIcon/> </span>Password</label>
             </div>
             <div className='input-container form-floating ml-6'>
-                <input type='phone' id='phone' name='phone' className='form-control' placeholder='+255*********' required />
+                <input type='phone' id='phone' name='phone' className='form-control' placeholder='+255*********' required 
+                style={{width:isSmallScreen? '100%':'90%'}} />
                 <label htmlFor='phone'><span><PhoneAndroidIcon/> </span>Mobile Number</label>
             </div>
            
-            <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 text-xl ml-7'>
+            <button className=' bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 text-xl ml-7'
+             style={{ 
+              marginTop: isSmallScreen ? '200px' : '0', 
+              width: isSmallScreen ? '88%' : 'auto',
+            }}>
                 Next
             </button>
 
           
 
-            <p className='mt-3 ml-7 text-white'>Already have an account? <a href='/login' className='text-white font-bold' style={{textDecoration: 'none'}}>Login</a></p>
+            <p className='mt-1 ml-7 text-white'>Already have an account? <a href='/login' className='text-white font-bold' style={{textDecoration: 'none'}}>Login</a></p>
         </div>
         </form>
         </div>
         </div>
+      </div>
+
+      <div style={{flex:'1',
+    // backgroundColor:'pink',
+      width:'100%',
+      height:'100%'
+     
+      }}>
+    <Footer/>
+    </div>
         </div>
     );
 };

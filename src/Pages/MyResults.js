@@ -12,11 +12,15 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 
 function MyResults() {
+    const isMediumScreen = window.matchMedia('(min-width: 768px)').matches;
+      const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
     return (
         <div className='results-container' style={{ display:'flex', backgroundColor:'rgb(241, 245, 249)'}}>
-            <div style={{ flex:'1'}}>
-             <Sidebar/>
-            </div>
+           {!isSmallScreen && (
+        <div className='sidebar' style={{ flex: '1'}}>
+          <Sidebar/>
+        </div>
+      )}
             <div style={{flex:'4',
         display:'flex',
          alignItems:'center',

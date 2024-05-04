@@ -13,6 +13,8 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import '../App.css';
 
 function Profile() {
+  const isMediumScreen = window.matchMedia('(min-width: 768px)').matches;
+      const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
   
   const {user, setUser}= useContext(UserContext);
   useEffect(() => {
@@ -23,9 +25,11 @@ function Profile() {
 
   return (
     <div style={{display:'flex'}}>
-        <div style={{flex:'1'}}>
-            <Sidebar/>
+       {!isSmallScreen && (
+        <div className='sidebar' style={{ flex: '1'}}>
+          <Sidebar/>
         </div>
+      )}
       <div className='' style={{flex:'4',
        display:'flex',
         alignItems:'center',
@@ -43,7 +47,7 @@ flexDirection:'column',
   width:'70%',
   height:'70%',
   borderRadius:'5px',
-  boxShadow:'0 0 10px rgba(0,0,0,0.1)',
+  boxShadow:'0 0 10px rgba(0,0,0,0.2)',
   padding:'20px',
   }}>
 
@@ -68,6 +72,9 @@ flexDirection:'column',
               </InputAdornment>
             ),
           }}
+          InputLabelProps={{
+            style: { color: 'blue' },
+          }}
           variant="standard"
         />
 </div>
@@ -83,6 +90,9 @@ flexDirection:'column',
                 <DriveFileRenameOutlineIcon className='profile-icon'/>
               </InputAdornment>
             ),
+          }}
+          InputLabelProps={{
+            style: { color: 'blue' },
           }}
           variant="standard"
         />
@@ -102,6 +112,9 @@ flexDirection:'column',
               </InputAdornment>
             ),
           }}
+          InputLabelProps={{
+            style: { color: 'blue' },
+          }}
           variant="standard"
         />
 </div>
@@ -117,6 +130,9 @@ flexDirection:'column',
                 <PhoneIcon className='profile-icon' />
               </InputAdornment>
             ), 
+          }}
+          InputLabelProps={{
+            style: { color: 'blue' },
           }}
           variant="standard"
         />

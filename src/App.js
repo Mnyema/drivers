@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 import { UserContextProvider } from './Components/UserContext';
 import 'tailwindcss/tailwind.css';
 import Navbar from './Components/Navbar';
+import NavbarTwo from './Components/NavbarTwo';
 import Sidebar from './Components/Sidebar';
 import LandingPage from './Pages/LandingPage';
 import Dashboard from './Pages/Dashboard';
@@ -16,20 +17,26 @@ import VenueAndItsSession from './Pages/VenueAndItsSession';
 import Login from './Pages/Login';
 import Profile from './Pages/Profile';
 import Loader from './Components/Loader';
-import {BrowserRouter as Router, Route, Routes, useLocation} from 'react-router-dom';
+import Footer from './Components/Footer';
+import {BrowserRouter , Router, Route, Routes} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function RoutesWithSidebar() {
-  
-  const location = useLocation();
-  const pageRoutes = ["/dashboard", "/certificate", "/myreservations", "/results", "/reserve", "/venue-and-session","/profile"];
+
+function App() {
+  //  const [user, setUser] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
-    <>
-      {pageRoutes.includes(location.pathname) && <Sidebar />}
+    <div className="App">
+      <UserContextProvider>
+      <BrowserRouter>
       <Routes>
+        <Route path='/sidebar' element={ <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+        <Route path='/navbar' element={<Navbar/>} />
+        <Route path='/navbartwo' element={<NavbarTwo/>} />
         <Route path="/" element={<LandingPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/footer" element={<Footer />} />
+        <Route path="/dashboard" element={<Dashboard isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
         <Route path="/certificate" element={<MyCertificate />} />
         <Route path="/myreservations" element={<MyReservations />} />
         <Route path="/results" element={<MyResults />} />
@@ -40,25 +47,8 @@ function RoutesWithSidebar() {
         <Route path="/profile" element={<Profile />} />
         <Route path='/loader' element={<Loader/>} />
       </Routes>
-    </>
-  );
-}
-
-
-function App() {
-   const [user, setUser] = useState(null);
-   
-
-
-  return (
-    <div className="App">
-      <Router>
-      
-      <UserContextProvider value={{ user, setUser }}>
-        <Navbar />
-          <RoutesWithSidebar />
-        </UserContextProvider>
-      </Router>
+      </BrowserRouter>
+      </UserContextProvider>
     </div>
   );
 }

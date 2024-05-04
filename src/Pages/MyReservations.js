@@ -34,6 +34,8 @@ function MyReservations() {
 
     const [openDialog, setOpenDialog] = useState(false);
 const [currentBooking, setCurrentBooking] = useState(null);
+const isMediumScreen = window.matchMedia('(min-width: 768px)').matches;
+      const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
 
 // ...
 
@@ -103,9 +105,11 @@ const handleOpenDialog = (booking) => {
     <div >
       <Loader isOpen={isLoading} />
     <div className='myreservation-container' style={{ display:'flex', backgroundColor:'rgb(241, 245, 249)'}}>
-      <div style={{ flex:'1'}}>
-        <Sidebar/>
-      </div>
+    {!isSmallScreen && (
+        <div className='sidebar' style={{ flex: '1'}}>
+          <Sidebar/>
+        </div>
+      )}
       <div style={{flex:'3'}}>
         <h3 className='mt-5'>My Reservations</h3>
         <p>Here are credentials about Reservation you've made</p>

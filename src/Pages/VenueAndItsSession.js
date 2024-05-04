@@ -23,6 +23,8 @@ import Loader from '../Components/Loader';
 
 
 function VenueAndItsSession() {
+  const isMediumScreen = window.matchMedia('(min-width: 768px)').matches;
+      const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
   const { user } = useContext(UserContext); 
   const [sessionData, setSessionData] = useState(null);
     const location = useLocation();
@@ -214,10 +216,15 @@ if (!venue) {
     return (
       <div>
         {isLoading ? <Loader /> : (
-        <div className='venue-container' style={{display:'flex', backgroundColor:'rgb(241, 245, 249)'}}>
-            <div style={{ flex:'1'}}>
-             <Sidebar/>
-            </div>
+        <div className='venue-container' style={{display:'flex',
+        // backgroundColor:'rgb(241, 245, 249)'
+         backgroundColor:'white'
+         }}>
+           {!isSmallScreen && (
+        <div className='sidebar' style={{ flex: '1'}}>
+          <Sidebar/>
+        </div>
+      )}
             <div style={{flex:'3'}}>
             <h3>{venue.name} </h3>
            <span><PlaceIcon color='info'/> </span> {venue.address} 
@@ -242,7 +249,7 @@ if (!venue) {
 
             <p className='mt-2'>Available Sessions for this month</p>
         <div>
-        <TableContainer component={Paper} style={{width:'90%', boxShadow:'0 0 10px rgba(0,0,0,0.1)'}}>
+        <TableContainer component={Paper} style={{width:'90%', boxShadow:'0 0 10px rgba(0,0,0,0.2)'}}>
   <Table aria-label="simple table">
     <TableHead>
       <TableRow>

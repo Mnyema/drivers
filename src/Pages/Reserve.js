@@ -13,8 +13,12 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { Link } from 'react-router-dom';
 
 class Reserve extends Component{
-
-    state = {
+    constructor(props) {
+        super(props);
+    
+        this.isMediumScreen = window.matchMedia('(min-width: 768px)').matches;
+        this.isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+    this.state = {
         regionsInTanzania: [
             "Arusha",
             "Dar es Salaam",
@@ -53,14 +57,8 @@ class Reserve extends Component{
         selectedDate: '',
         filteredSessions: [],
     };
-    
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         selectedDate: '',
-    //         selectedRegion: '', 
-    //     };
-    // }
+}
+  
 
     componentDidMount() {
         axios.get('https://rsallies.azurewebsites.net/api/venues')
@@ -97,9 +95,11 @@ class Reserve extends Component{
     render() {
     return (
         <div className='reserve-container' style={{ display:'flex', backgroundColor: 'rgb(241, 245, 249)'}}>
-            <div style={{ flex:'1'}}>
-             <Sidebar/>
-            </div>
+             {!this.isSmallScreen && (
+      <div className='sidebar' style={{ flex: '1'}}>
+        <Sidebar/>
+      </div>
+    )}
             <div style={{flex:'4', overflowY:'auto'}}>
             <h2 className='ml-5 '>Secure Your Spot</h2>
             <p className='text-base ml-5'>Reserve a venue for your theoretical driving test here </p>

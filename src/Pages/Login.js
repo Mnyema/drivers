@@ -9,6 +9,8 @@ import Alert from '@mui/material/Alert';
 import axios from 'axios';
 import { UserContext } from '../Components/UserContext';
 import Loader from '../Components/Loader';
+import Navbar from '../Components/Navbar';
+import Footer from '../Components/Footer';
 
 function Login() {
     const myRef = useRef(null);
@@ -17,6 +19,8 @@ function Login() {
     const [errorMessage, setErrorMessage] = useState(null);
     const {setUser} = React.useContext(UserContext);
     const [isLoading, setIsLoading] = useState(false);
+    const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+    const isMediumScreen = window.matchMedia('(min-width: 768px)').matches;
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -78,17 +82,39 @@ function Login() {
   return (
     <div style={{position:'relative'}}>
       <Loader isOpen={isLoading}/>
-    <div className='login' ref={myRef}>
-        <div className='login-container '>
-        <div className='login-left-column'>
+      <div ref={myRef} style={{
+        display:'flex',
+        flexDirection:'column',
+         justifyContent:'center', 
+         alignItems:'center',
+          height:'100vh',
+           width:'100vw',
+           position:'fixed',
+           }}>
+            <div style={{flex:'1', width:'100%', zIndex:'9999'}}>
+          <Navbar/>
+           </div>
+      
+    <div className='login '  style={{ 
+        marginTop: isSmallScreen ? '0' : '5rem',
+        flex: '9',
+       alignItems: 'center',
+        display: 'flex',
+       //  backgroundColor: 'pink',
+         marginTop: '0',
+       justifyContent: 'center',
+       position:'relative',
+      }}>
+        <div className='login-container ' style={{width:isSmallScreen? '100%':'80%'}}>
+        <div className='login-left-column' style={{display: isSmallScreen ? 'none' : 'block'}}>
         <img src={drivingLicense} alt="Left column image" className="" />
         </div>
 
-           <div className='login-right-column'> 
+           <div className='login-right-column '> 
          <form onSubmit={handleLogin}> 
-         <div className=' mt-8'>
+         <div className=' 'style={{ marginTop: isSmallScreen ? '0' : '2rem' }}>
 
-         <Snackbar className='w-50 p-10 mb-2'
+         <Snackbar className=' p-10 mb-2' style={{zIndex:'10000', width: isSmallScreen ? '90vw' : '50%',}}
            open={isSnackbarOpen}
           //  autoHideDuration={6000}
            onClose={() => setIsSnackbarOpen(false)}
@@ -99,7 +125,8 @@ function Login() {
           </Alert>
           </Snackbar>
 
-            <h1 className='text-3xl font-bold justify-center ml-8 text-white mb-3'>Log In</h1>
+            <h1 className='text-3xl font-bold justify-center ml-8 text-white mb-3'
+            style={{textAlign: isSmallScreen ? 'center' : 'left'}}>Log In</h1>
              <p> </p>
             <div className='input-container form-floating ml-6'>
                 <input type='phone' id='phone' name='phone' className='form-control' placeholder='+255*********' required />
@@ -110,7 +137,11 @@ function Login() {
                 <label htmlFor='email'><span><LockIcon/> </span>Password</label>
             </div>
            
-            <button type='submit' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 text-xl ml-7'>
+            <button type='submit' className=' bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 text-xl ml-7'
+            style={{ 
+              marginTop: isSmallScreen ? '200px' : '0', 
+              width: isSmallScreen ? '88%' : 'auto',
+            }}>
                 Login
             </button>
 
@@ -121,8 +152,17 @@ function Login() {
 
         </div>
 
-        </div>
-      
+    </div>
+
+    <div style={{flex:'1',
+    // backgroundColor:'pink',
+      width:'100%',
+      height:'100%'
+     }}>
+    <Footer/>
+    </div>
+
+      </div>
         </div>
   );
 }
