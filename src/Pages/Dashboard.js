@@ -16,7 +16,7 @@ import Tanzania from '../Images/tanzaniaEmblem.jpg';
 import Driving from '../Images/pexels-jeshoots-com-147458-13861.jpg';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
-// import { Carousel } from 'react-responsive-carousel';
+import NavbarTwo from '../Components/NavbarTwo';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import LanguageIcon from '@mui/icons-material/Language';
 import Language from '../Components/language';
@@ -132,7 +132,7 @@ const logout = () => {
   }, [user]);
 
     return (
-       <div style={{ backgroundColor:'red'}}>
+       <div style={{ backgroundColor:'#f5f9fd', position:'fixed'}}>
         <div className='dashboard-container ' style={{ display:'flex',flexDirection:'row'}} >
         {!isSmallScreen && (
         <div className='sidebar' style={{ flex: '1'}}>
@@ -142,7 +142,10 @@ const logout = () => {
             
             <div className='right-space' style={{ flex: '4', width:isSmallScreen?'100vw':'100%' }}>
               <div  className='dashboard-content' >
-                <div className='welcome-div mt-2 mb-2 ' style={{height:'100%', display:'flex', flexDirection:'row'}}>
+                <div className='welcome-div mt-2 mb-2 bg-white '
+                 style={{height:'100%', display:'flex',
+                  flexDirection:'row', boxShadow:'0 0 10px 0 rgba(0,0,0,0.1)', 
+                  padding:'8px', marginLeft:isMediumScreen?'15px':'', marginRight:isMediumScreen?'15px':''}}>
                 <button type='button'
         className="btn  md:hidden hide-on-md"
         onClick={toggleSidebar}
@@ -175,6 +178,7 @@ const logout = () => {
 </li> */}
 <Sidebar onClick={toggleSidebar}  />
 </div> 
+    
 
                <div className='' style={{display:'flex', flex:'3'}}>
                <h4 className='font-mono font-bold' style={{display:isMediumScreen?'none':''}}> SaferDriving 

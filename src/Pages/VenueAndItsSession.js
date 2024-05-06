@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
 import Sidebar from '../Components/Sidebar';
+import NavbarTwo from '../Components/NavbarTwo';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -216,20 +217,25 @@ if (!venue) {
     return (
       <div>
         {isLoading ? <Loader /> : (
-        <div className='venue-container' style={{display:'flex',
-        // backgroundColor:'rgb(241, 245, 249)'
-         backgroundColor:'white'
+        <div className='venue-container' style={{display:'flex', flexDirection:'row', height:'100vh', width:'100vw', padding:'10px',position:'fixed',overflow:'auto',
+         backgroundColor:'#f9f5fd',
+         
          }}>
            {!isSmallScreen && (
         <div className='sidebar' style={{ flex: '1'}}>
           <Sidebar/>
         </div>
       )}
-            <div style={{flex:'3'}}>
-            <h3>{venue.name} </h3>
-           <span><PlaceIcon color='info'/> </span> {venue.address} 
+      <div className='bg-red-200' style={{flex:'4',display:'flex', flexDirection:'column', height:'100vh'}}>
+      <div className='navtwo' style={{flex:'1'}}>
+                    <NavbarTwo/>
+                </div>
+            <div className='bg-red-100' style={{flex:'9',padding:'10px', width:'100%' }}>
+           <div className='' style={{display:'flex', justifyContent:'flex-start'}}> <h3>{venue.name} </h3> </div>
+           <div className='' style={{display:'flex', justifyContent:'flex-start'}}>
+           <span><PlaceIcon color='info'/> </span> {venue.address} </div>
 
-            <Snackbar
+            <Snackbar style={{zIndex:'10000', width: isSmallScreen ? '90vw' : '50%',}}
                  open={openSnackbar}
         //   autoHideDuration={6000}
             onClose={handleCloseSnackbar}
@@ -248,8 +254,8 @@ if (!venue) {
           </Snackbar> 
 
             <p className='mt-2'>Available Sessions for this month</p>
-        <div>
-        <TableContainer component={Paper} style={{width:'90%', boxShadow:'0 0 10px rgba(0,0,0,0.2)'}}>
+        <div className=' mt-2' style={{display:'flex', justifyContent:'center',width:'100%'}}>
+        <TableContainer component={Paper} style={{width:'100%', boxShadow:'0 0 10px rgba(0,0,0,0.2)'}}>
   <Table aria-label="simple table">
     <TableHead>
       <TableRow>
@@ -265,7 +271,7 @@ if (!venue) {
           <TableCell>{new Date(session.sessionDate).toLocaleTimeString()}</TableCell>
           <TableCell>{session.currentCapacity}</TableCell>
           <TableCell><button className='btn btn-outline-primary btn-sm' onClick={() => handleClickOpen(session.id)}  title={`Session ID: ${session.id}`}>
-            Reserve
+            Book
             </button></TableCell>
         </TableRow>
       ))}
@@ -284,7 +290,7 @@ if (!venue) {
        at <span className='text-warning'> {new Date(sessionData.value.sessionDate).toLocaleTimeString()}</span>?
     </DialogContentText><br/>
     <DialogContentText className='text-danger'>
-       Note: You can only book one session at a time.
+      <span className='font-bold'>Note: </span>You can only book one session at a time.
     </DialogContentText>
     </>
   )}
@@ -303,6 +309,7 @@ if (!venue) {
 
             </div>
             </div>
+      </div>
         </div>
         )}
     </div>

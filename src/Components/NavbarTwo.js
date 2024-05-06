@@ -100,11 +100,17 @@ const logout = () => {
       };
 
     return(
-        <div className='welcome-div mt-2 mb-2 bg-red-100 ' style={{height:'100%', display:'flex', flexDirection:'row', zIndex:'10000'}}>
+        <div className='welcome-div mb-2 bg-white ' style={{ display:'flex',
+         flexDirection:'row', zIndex:'10000',
+         boxShadow:'0 0 10px 0 rgba(0,0,0,0.1)',
+         top:'0',
+         width:'100%',
+          boxSizing: 'border-box',
+         padding:'8px', marginLeft:isMediumScreen?'0':'0'}}>
         <button type='button'
 className="btn  md:hidden hide-on-md"
 onClick={toggleSidebar}
-style={{ marginLeft:'10px',
+style={{ marginLeft:'',
 display: isMediumScreen ? 'none' : 'flex',
 }}
 >

@@ -11,6 +11,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import img6 from '../Images/pexels-polina-zimmerman-3747486.jpg'
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { Link } from 'react-router-dom';
+import NavbarTwo from '../Components/NavbarTwo';
 
 class Reserve extends Component{
     constructor(props) {
@@ -94,13 +95,17 @@ class Reserve extends Component{
 
     render() {
     return (
-        <div className='reserve-container' style={{ display:'flex', backgroundColor: 'rgb(241, 245, 249)'}}>
+        <div className='reserve-container' style={{ display:'flex',flexDirection:'row',position:'fixed', backgroundColor: '#f9f5fd'}}>
              {!this.isSmallScreen && (
       <div className='sidebar' style={{ flex: '1'}}>
         <Sidebar/>
       </div>
     )}
-            <div style={{flex:'4', overflowY:'auto'}}>
+            <div className='reserve-div' style={{flex:'4', overflowY:'auto', padding:'5px', backgroundColor:'#f9f5fd'}}>
+                <div className='navtwo' style={{flex:'1'}}>
+                    <NavbarTwo/>
+                </div>
+                <div className='content' style={{ flex:'9', marginTop:this.isSmallScreen?'20px':''}}>
             <h2 className='ml-5 '>Secure Your Spot</h2>
             <p className='text-base ml-5'>Reserve a venue for your theoretical driving test here </p>
 
@@ -109,13 +114,15 @@ class Reserve extends Component{
         <Accordion.Header>Find Venue</Accordion.Header>
         <Accordion.Body>
         <form  className=''>
-                <div style={{display:'flex', 
+                <div className='filter ' style={{display:'flex', 
+                             flexDirection:this.isSmallScreen?'column':'row',
                              justifyContent: 'space-around', 
                              alignItems: 'center',
-                             width: '90%',
-                             gap: '20px'
-                           }} className=''>
-                <div className='form-floating mb-3 flex-1 ' style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+                             width: '100%',
+                             gap:this.isSmallScreen?'': '20px'
+                           }}>
+                <div className='form-floating mb-3 flex-1 ' style={{display:'flex', justifyContent:'center',
+                width:this.isSmallScreen?'100%':'', alignItems:'center', height:"100%"}}>
                     <input 
                     type='date' className='form-control ' id='date' name='date' placeholder='Pick a date'
                      min={new Date().toISOString().slice(0, 10)} 
@@ -124,7 +131,7 @@ class Reserve extends Component{
                      onChange={e => this.setState({ selectedDate: e.target.value })}/>
                     <label htmlFor='floatingDate' className=' text-lg text-primary '> Pick Date</label>
                 </div>
-                <div className='form-floating mb-3 flex-1 '>
+                <div className='form-floating mb-3 flex-1 ' style={{width:this.isSmallScreen?'100%':'', }}>
                     <select className='form-control' id='region' name='region' 
                     required
                     onChange={e => this.setState({ selectedRegion: e.target.value })}>
@@ -135,7 +142,8 @@ class Reserve extends Component{
                     </select>
                     <label htmlFor='floatingSelect' className='text-primary text-lg'><span><LocationOnIcon/></span> Choose Region</label>
                 </div>
-                <div className='flex-1  justify-center items-center'>
+                <div className='flex-1  '
+                style={{display:'flex', alignItems:'center', justifyContent:'center', width:this.isSmallScreen?'100%':'', }}>
                   <button onClick={()=>this.filterSessions(this.state.selectedRegion, this.state.selectedDate)} className="btn btn-primary mb-3 filter-btn"
                   style={{width:'250px', height:'50px' }}>Filter <span><FilterAltIcon/></span></button>
                   </div>
@@ -147,12 +155,12 @@ class Reserve extends Component{
       </Accordion.Item>
            </Accordion>
             
-            <div className='d-flex flex-wrap justify-content-around ml-0 mt-3 mr-6 '>
+            <div className='d-flex flex-wrap justify-content-around ml-0 mt-3'>
             { this.state.venues.map(venue => (
 
                       <Link to={`/venue-and-session?venueId=${venue.id}`} className='venue-item' style={{textDecoration:'none'}} key={venue.id}>
-                        <Card style={{ width: '18rem', height:'14rem', boxShadow: '0 0 8px rgba(0,0,0,0.1)', cursor:'pointer'}} className='m-2  venue-card' key={venue.id}>
-                          <Card.Img variant="top" src={img6} style={{width:'18rem', height:'8rem'}} />
+                        <Card style={{ width:this.isSmallScreen?'95vw': '18rem', height:'14rem', boxShadow: '0 0 8px rgba(0,0,0,0.1)', cursor:'pointer'}} className='m-2  venue-card' key={venue.id}>
+                          <Card.Img variant="top" src={img6} style={{width:this.isSmallScreen?'100%':'18rem', height:'8rem'}} />
                           <Card.Body className='text-sm' style={{transition: 'box-shadow .3s ease', boxShadow: '0 0 10px rgba(0,0,0,0)', height:'5rem'}}>
                            <Card.Title className='text-sm'>{venue.name}</Card.Title>
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -167,16 +175,7 @@ class Reserve extends Component{
                     ))}
                 </div>
                 
-                {/* <div className='d-flex flex-wrap justify-content-around ml-0 mt-3 mr-6 '>
-                {this.state.filteredSessions && this.state.filteredSessions.map(session => (
-        // Replace this with your code to display a session
-        <div key={session.id}>
-            <h2>{session.venueName}</h2>
-            <p>{session.sessionDate}</p>
-            <p>{session.currentCapacity}</p>
-        </div>
-    ))}
-</div> */}
+            
 
 
 
@@ -184,6 +183,7 @@ class Reserve extends Component{
             </div>
             
             
+        </div>
         </div>
     );
 }

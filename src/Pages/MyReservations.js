@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../App.css';
 import Sidebar from '../Components/Sidebar';
+import NavbarTwo from '../Components/NavbarTwo';
 import { UserContext } from '../Components/UserContext';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -104,17 +105,22 @@ const handleOpenDialog = (booking) => {
   return (
     <div >
       <Loader isOpen={isLoading} />
-    <div className='myreservation-container' style={{ display:'flex', backgroundColor:'rgb(241, 245, 249)'}}>
+    <div className='myreservation-container' style={{ display:'flex', flexDirection:'row', backgroundColor:'#f9f5fd', height:'100vh', width:'100vw', alignItems:'center',justifyContent:'center', position:'fixed'}}>
     {!isSmallScreen && (
         <div className='sidebar' style={{ flex: '1'}}>
           <Sidebar/>
         </div>
       )}
-      <div style={{flex:'3'}}>
-        <h3 className='mt-5'>My Reservations</h3>
-        <p>Here are credentials about Reservation you've made</p>
+      <div className='' style={{flex:'4',display:'flex', flexDirection:'column', height:'100vh',alignContent:'center',justifyContent:'center'}}>
+      <div className='navtwo' style={{flex:'1'}}>
+                    <NavbarTwo/>
+                </div>
+      <div className='' style={{width:isSmallScreen?'100vw':'90%', flex:'9',}}>
+        <div className='' style={{display:'flex',flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
+        <h3 className='' style={{flex:'1'}}>My Reservations</h3>
+        <p style={{flex:'1'}}>Here are credentials about Reservation you've made</p>
 
-        <Snackbar
+        <Snackbar style={{zIndex:'10000', width: isSmallScreen ? '90vw' : '50%',}}
                  open={openSnackbar}
         //   autoHideDuration={6000}
             onClose={handleCloseSnackbar}
@@ -132,14 +138,14 @@ const handleOpenDialog = (booking) => {
            </Alert>
           </Snackbar> 
         
-<div style={{width:'90%'}}>
+<div style={{width:isSmallScreen?'95%':'90%',display:'flex',flex:'3', justifyContent:'center'}}>
   <Card>
-    <Card.Body className='bg-blue-200 info-card font-mono text-sm' style={{width:'100%', height:'50px', borderRadius:'5px', display:'flex', alignItems:'center', borderColor:'blue'}}>
+    <Card.Body className='bg-blue-200 info-card font-mono text-sm' style={{width:'100%', height:isSmallScreen?'fit-content':'50px', borderRadius:'5px', display:'flex', alignItems:'center', borderColor:'blue'}}>
     <span className='mr-2'><InfoIcon /></span> Kindly carry your valid NIDA card and be at the venue 30 minutes before the session starts.
       </Card.Body>
   </Card>
 </div>
-
+</div>
 {/* <TableContainer component={Paper} style={{width:'90%', boxShadow:'0 0 10px rgba(0,0,0,0.1)'}}
  className='mt-3'>
   <Table>
@@ -185,8 +191,8 @@ const handleOpenDialog = (booking) => {
   </Table>
 </TableContainer> */}
 
-
-<TableContainer className='mt-3' component={Paper} style={{width:'90%', boxShadow:'0 0 10px rgba(0,0,0,0.1)'}}>
+<div className='' style={{display:'flex', alignItems:'center', justifyContent:'center',width:isSmallScreen?'100vw':'100%'}}>
+<TableContainer className='mt-3' component={Paper} style={{width:isSmallScreen?'95%':'90%', boxShadow:'0 0 10px rgba(0,0,0,0.1)'}}>
     <Table>
     <TableHead>
             {bookings.length === 0 && (
@@ -252,7 +258,7 @@ const handleOpenDialog = (booking) => {
         </TableBody>
     </Table>
 </TableContainer>
-
+</div>
 
 <Dialog open={openDialog} onClose={handleCloseDialog}>
   <DialogTitle>Confirm Cancelling Reservation</DialogTitle>
@@ -275,6 +281,7 @@ const handleOpenDialog = (booking) => {
     </Button>
   </DialogActions>
 </Dialog>
+      </div>
       </div>
     </div>
     </div>

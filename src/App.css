@@ -257,7 +257,14 @@
   flex-direction: column;
   margin-right: 10px;
 }
-
+.reserve-div{
+  height: 100vh;
+  background-color: #f5f9fd;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: flex-end; */
+}
 .welcome-div{
   flex: 1;
   width: 100%;
