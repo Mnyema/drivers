@@ -18,6 +18,9 @@ import Login from './Pages/Login';
 import Profile from './Pages/Profile';
 import Loader from './Components/Loader';
 import Footer from './Components/Footer';
+import Question from './Pages/Question';
+import IntroToQuestion from './Pages/IntroToQuestion';
+import FinishAttempt from './Pages/FinishAttempt';
 import {BrowserRouter , Router, Route, Routes} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -46,6 +49,9 @@ function App() {
         <Route path='/venue-and-session' element={<VenueAndItsSession/>} />
         <Route path="/profile" element={<Profile />} />
         <Route path='/loader' element={<Loader/>} />
+        <Route path='/question' element={<Question/>} />
+        <Route path='/intro-to-question' element={<IntroToQuestion/>} />
+        <Route path='/finish-attempt' element={<FinishAttempt/>} />
       </Routes>
       </BrowserRouter>
       </UserContextProvider>

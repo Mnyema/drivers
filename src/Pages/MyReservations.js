@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import '../App.css';
 import Sidebar from '../Components/Sidebar';
 import NavbarTwo from '../Components/NavbarTwo';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../Components/UserContext';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -32,11 +33,18 @@ function MyReservations() {
   const { user } = useContext(UserContext);
   const [openSnackbar, setOpenSnackbar] = useState(false);
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
+    
+    const redirectToQuestion = () => {
+      setIsLoading(true);
+      navigate('/intro-to-question');
+      setIsLoading(false);
+    };
 
     const [openDialog, setOpenDialog] = useState(false);
 const [currentBooking, setCurrentBooking] = useState(null);
 const isMediumScreen = window.matchMedia('(min-width: 768px)').matches;
-      const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
 
 // ...
 
@@ -117,8 +125,8 @@ const handleOpenDialog = (booking) => {
                 </div>
       <div className='' style={{width:isSmallScreen?'100vw':'90%', flex:'9',}}>
         <div className='' style={{display:'flex',flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
-        <h3 className='' style={{flex:'1'}}>My Reservations</h3>
-        <p style={{flex:'1'}}>Here are credentials about Reservation you've made</p>
+        <h3 className='' style={{flex:'1'}}>My Bookings</h3>
+        <p style={{flex:'1'}}>Here are credentials about bookings you've made</p>
 
         <Snackbar style={{zIndex:'10000', width: isSmallScreen ? '90vw' : '50%',}}
                  open={openSnackbar}
@@ -134,7 +142,7 @@ const handleOpenDialog = (booking) => {
              <CloseIcon fontSize="small" />
              </IconButton>
             }>
-    Reservation cancelled successfully!
+    Booking cancelled successfully!
            </Alert>
           </Snackbar> 
         
@@ -198,7 +206,7 @@ const handleOpenDialog = (booking) => {
             {bookings.length === 0 && (
                 <TableRow>
                     <TableCell>
-                        <span><AutorenewIcon/></span>You don't have any reservation yet
+                        <span><AutorenewIcon/></span>You don't have any booking yet
                     </TableCell>
                 </TableRow>
             )}
@@ -244,12 +252,18 @@ const handleOpenDialog = (booking) => {
                             </TableCell>
                         </TableRow>
                         <TableRow key={booking.id + 'cancel'}>
-                            <TableCell style={{display:'flex', justifyContent:'flex-end'}}>
+                            <TableCell >
+                              <div style={{display:'flex', justifyContent:'space-between'}}>
+                              <button className='btn btn-outline-primary btn-sm' onClick={redirectToQuestion}>
+                                  Attempt Test
+                                </button>
                                 {!cancelledBookings.includes(booking.id) && (
                                     <button  className='btn btn-outline-danger btn-sm' onClick={() => handleOpenDialog(booking)}>
                                         Cancel <span> <NotInterestedIcon fontSize='sm'/></span>
                                     </button>
                                 )}
+
+                                </div>
                             </TableCell>
                         </TableRow>
                     </>

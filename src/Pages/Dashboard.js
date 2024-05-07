@@ -132,7 +132,7 @@ const logout = () => {
   }, [user]);
 
     return (
-       <div style={{ backgroundColor:'#f5f9fd', position:'fixed'}}>
+       <div style={{ backgroundColor:'#f9f5fd', position:'fixed'}}>
         <div className='dashboard-container ' style={{ display:'flex',flexDirection:'row'}} >
         {!isSmallScreen && (
         <div className='sidebar' style={{ flex: '1'}}>
@@ -140,7 +140,7 @@ const logout = () => {
         </div>
       )}
             
-            <div className='right-space' style={{ flex: '4', width:isSmallScreen?'100vw':'100%' }}>
+            <div className='right-space' style={{ flex: '4', width:isSmallScreen?'100vw':'100%', backgroundColor:'#f9f5fd' }}>
               <div  className='dashboard-content' >
                 <div className='welcome-div mt-2 mb-2 bg-white '
                  style={{height:'100%', display:'flex',
@@ -264,16 +264,16 @@ const logout = () => {
                         <div className='reservation-div'>
                           <Card style={{height:'100%', width:'100%', borderColor:'cyan'}}>
                           <Card.Body>
-  <Card.Title>Upcoming Reservation <span><AccessAlarmIcon color='warning'/></span></Card.Title>
+  <Card.Title>Upcoming Test <span><AccessAlarmIcon color='warning'/></span></Card.Title>
   {booking && booking.isSuccess && booking.value && booking.value.code !== 'GetCurrentBooking.NoBooking' ? (
     <Card.Text>
-      Your reservation for the venue <span className='text-orange-900'>{booking.value.venueName} </span> 
+      Your test at venue <span className='text-orange-900'>{booking.value.venueName} </span> 
        in <span className='text-orange-900'>{booking.value.venueAddress} </span>
       on <span className='text-orange-900'>{new Date(booking.value.sessionDate).toLocaleDateString()} </span>
       at <span className='text-orange-900'>{new Date(booking.value.sessionDate).toLocaleTimeString()} </span> is coming soon!
     </Card.Text>
   ) : (
-    <Card.Text>Your Upcoming reservation will appear here</Card.Text>
+    <Card.Text>Your Upcoming test will appear here</Card.Text>
   )}
 </Card.Body>
                           </Card>
@@ -410,7 +410,7 @@ const logout = () => {
                       - Documents -</p>
                       </div>
                     <div className='docs-div' style={{flex:'5',margin:'0', padding:'0', display:'flex', flexDirection:isSmallScreen?'column': 'row', alignItems:'center', justifyContent:'center', gap:'5px', marginRight:'5px'}}>
-                    <div className='doc-one' 
+                    <div className='doc-one bg-white' 
                     style={{flex:'1',height:isSmallScreen?'auto': '90%', display:'flex', flexDirection:'row', borderColor:"blue", alignItems:'center', justifyContent:'center'}}>
                       <div className='img-div  ' style={{flex:'1', height:isSmallScreen?'70%': '90%', display:'flex', alignItems:'center',justifyContent:'center'}}>
                         <img src={Law} alt='' style={{height:isSmallScreen?'50%': '70%', width: isSmallScreen?'100%': '70%', borderRadius:'5px'}}/>
@@ -421,7 +421,7 @@ const logout = () => {
                         </a>
                       </div>
                     </div>
-                    <div className='doc-one' 
+                    <div className='doc-one bg-white' 
                     style={{flex:'1',height:'90%', display:'flex', flexDirection:'row', borderColor:"blue", alignItems:'center', justifyContent:'center'}}>
                       <div className='img-div ' style={{flex:'1', height:'90%', display:'flex', alignItems:'center',justifyContent:'center'}}>
                         <img src={Driving} alt='' style={{height:'70%', width:'70%', borderRadius:'5px'}}/>
@@ -432,7 +432,7 @@ const logout = () => {
                         </a>
                       </div>
                     </div>
-                    <div className='doc-one ' 
+                    <div className='doc-one bg-white' 
                     style={{flex:'1',height:'90%', display:'flex', flexDirection:'row', borderColor:"blue", alignItems:'center', justifyContent:'center'}}>
                       <div className='img-div ' style={{flex:'1', height:'90%', display:'flex', alignItems:'center',justifyContent:'center'}}>
                         <img src={Tanzania} alt='' style={{height:'70%', width:'70%', borderRadius:'5px'}}/>

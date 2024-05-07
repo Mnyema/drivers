@@ -226,11 +226,11 @@ if (!venue) {
           <Sidebar/>
         </div>
       )}
-      <div className='bg-red-200' style={{flex:'4',display:'flex', flexDirection:'column', height:'100vh'}}>
+      <div className='' style={{flex:'4',display:'flex', flexDirection:'column', height:'100vh'}}>
       <div className='navtwo' style={{flex:'1'}}>
                     <NavbarTwo/>
                 </div>
-            <div className='bg-red-100' style={{flex:'9',padding:'10px', width:'100%' }}>
+            <div className='' style={{flex:'9',padding:'10px', width:'100%' }}>
            <div className='' style={{display:'flex', justifyContent:'flex-start'}}> <h3>{venue.name} </h3> </div>
            <div className='' style={{display:'flex', justifyContent:'flex-start'}}>
            <span><PlaceIcon color='info'/> </span> {venue.address} </div>
@@ -269,8 +269,13 @@ if (!venue) {
         <TableRow key={session.id}>
           <TableCell>{new Date(session.sessionDate).toLocaleDateString()}</TableCell>
           <TableCell>{new Date(session.sessionDate).toLocaleTimeString()}</TableCell>
-          <TableCell>{session.currentCapacity}</TableCell>
-          <TableCell><button className='btn btn-outline-primary btn-sm' onClick={() => handleClickOpen(session.id)}  title={`Session ID: ${session.id}`}>
+          <TableCell>{venue.capacity - session.currentCapacity}</TableCell>
+          <TableCell>
+            <button className='btn btn-outline-primary btn-sm' 
+            onClick={() => handleClickOpen(session.id)}  
+            title={`Session ID: ${session.id}`}
+            disabled={venue.capacity - session.currentCapacity === 0}
+            >
             Book
             </button></TableCell>
         </TableRow>
