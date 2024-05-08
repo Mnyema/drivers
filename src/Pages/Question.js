@@ -7,25 +7,10 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 function Question(){
     const navigate = useNavigate();
 const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+const [questions, setQuestions] = useState([]);
+const [answers, setAnswers] = useState(Array(questions.length).fill(null));
+const [seconds, setSeconds] = useState(parseInt(localStorage.getItem('timer')) || 30*60);
 const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-const [questions, setQuestions] = useState([
-    'Question 1','Question 2','Question 3','Question 4','Question 5','Question 6','Question 7','Question 8','Question 9','Question 10',
-    'Question 11','Question 12','Question 13','Question 14','Question 15','Question 16','Question 17','Question 18','Question 19','Question 20',
-    'Question 21','Question 22','Question 23','Question 24','Question 25',,
-    
-  ]);
-  //const [seconds, setSeconds] = useState(30*60);
-  const [seconds, setSeconds] = useState(parseInt(localStorage.getItem('timer')) || 30*60);
-//   useEffect(() => {
-//     if (seconds > 0) {
-//       const timerId = setTimeout(() => {
-//         setSeconds(seconds - 1);
-//       }, 1000);
-//       return () => clearTimeout(timerId); // This will clear the timer if the component is unmounted
-//     } else {
-//       navigate('/finish-attempt');
-//     }
-//   }, [seconds, navigate]);
 
 useEffect(() => {
     const timerId = setInterval(() => {
@@ -43,34 +28,36 @@ useEffect(() => {
     return () => clearInterval(timerId);
   }, []);
 
-  const handleNextClick = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      const remainingQuestions = questions.length - currentQuestionIndex - 1;
-      const increment = Math.min(5, remainingQuestions);
-      setCurrentQuestionIndex(currentQuestionIndex + increment);
-    }
-  };
-  const handleBackClick = () => {
-    setCurrentQuestionIndex(currentQuestionIndex - 5);
-  };
+  useEffect(() => {
+    fetch('https://rsallies.azurewebsites.net/api/questions')
+      .then(response => response.json())
+      .then(data => {
+        setQuestions(data.value);
+        setAnswers(Array(data.value.length).fill(null)); // Initialize answers here
+      });
+  }, []);
+
+  function handleChoiceClick(index, choiceId) {
+    // Update the answers state with the new answer
+    setAnswers(prevAnswers => {
+      const newAnswers = [...prevAnswers];
+      newAnswers[index] = choiceId;
+      return newAnswers;
+    });
+  }
+
+  function handleSubmitClick() {
+    // Here you can send the answers to MyResults.js
+    // For example, you can use the useHistory hook from react-router-dom to navigate to the MyResults component and pass the answers as state
+  }
+
   const redirecttofinish = () => {
     navigate('/finish-attempt');
   };
   const goBack = () => {
    navigate('/question')
   };
-  const hasNext = currentQuestionIndex + 5 < questions.length-1;
-  const hasPrevious = currentQuestionIndex - 5 >= 0;
-  const firstQuestionNumber = currentQuestionIndex+1 ;
-  const lastQuestionNumber = currentQuestionIndex + Math.min(5, questions.length - currentQuestionIndex);
-  const [answers, setAnswers] = useState(new Array(questions.length).fill(null));
-  const handleAnswerChange = (questionIndex, selectedAnswer) => {
-    setAnswers(prevAnswers => {
-      const newAnswers = [...prevAnswers];
-      newAnswers[questionIndex] = selectedAnswer;
-      return newAnswers;
-    });
-  };
+ 
 
   const [openDialog, setOpenDialog] = useState(false);
   const handleOpenDialog = () => {
@@ -82,11 +69,11 @@ useEffect(() => {
   };
 
 return(
-    <div className='' style={{display:'flex', height:'100vh', width:'100vw', alignItems:'center',justifyContent:'center'}}>
-     <div className='' style={{height:'100%', width:'95%',display:'flex', flexDirection:'column',justifyContent:'center'}}>
+    <div className='' style={{display:'flex', height:'100vh', width:'100vw', alignItems:'center',justifyContent:'center',position:'fixed'}}>
+     <div className='' style={{height:'100vh', width:'95%',display:'flex', flexDirection:'column',justifyContent:'center'}}>
         <div className='' style={{display:'flex',flexDirection:'row', flex:'1',
-         width:'100%',position:'sticky',top:'0', zIndex:'10000', alignItems:'center',
-         backgroundColor:'rgba(255, 255, 255, 0.3)',
+         width:'100%',top:'0',position:'sticky', zIndex:'10000', alignItems:'center',
+         backgroundColor:'',
              backdropFilter: 'blur(10px)',
              WebkitBackdropFilter: 'blur(10px)',}}>
 
@@ -102,7 +89,7 @@ return(
     <Button onClick={handleCloseDialog} color="primary" variant='outlined' style={{width:'30%'}}>
       Back
     </Button>
-    <Button onClick={() => { redirecttofinish(); handleCloseDialog();}} style={{width:'30%'}}
+    <Button onClick={() => { redirecttofinish(); handleCloseDialog(); handleSubmitClick();}} style={{width:'30%'}}
     color="success" variant='contained'>
       Submit
     </Button>
@@ -121,58 +108,53 @@ return(
         </div>
         </div>
         
-       <div className='' style={{display:'flex', flex:'10',width:'100%', justifyContent:'center',marginTop:isSmallScreen?'80%':'50%' }}>
+       <div className='' style={{display:'flex', flex:'12',width:'100%',height:'100%', justifyContent:'center',overflow:'auto' }}>
         <div className='' style={{display:'flex',alignItems:'center',justifyContent:'center',width:'95%', height:'100%', flexDirection:'column',backgroundColor:'white',overflow:'auto'}}>
 
-        <div className='question' style={{display:'flex',alignItems:'center',width:'95%', height:'100%', flexDirection:'column',backgroundColor:'white',position:'relative', overflow:'auto'}}>
+        <div className='question' style={{display:'flex',alignItems:'center',width:'95%', height:'100%', flexDirection:'column',backgroundColor:'white',position:'relative', }}>
   
-        {questions.slice(currentQuestionIndex, currentQuestionIndex + 5).map((question, index) => (
-  <div className='qn mt-2 mb-2 p-3 bg-blue-100' style={{height:'fit-content', width:isSmallScreen?'100%':'90%',borderRadius:'5px'}} key={index}>
-    <form className='' style={{display:'flex', flexDirection:'column'}}>
-      <p>{index + 1 + currentQuestionIndex}. Your question here?</p>
-      <label>
-        <input type="radio" name={`choice${index}`} value="choice1" className='ml-2 mr-2'
-          checked={answers[currentQuestionIndex + index] === 'choice1'}
-          onChange={() => handleAnswerChange(currentQuestionIndex + index, 'choice1')}
-        />
-        Choice 1
-      </label>
-      <label>
-        <input type="radio" name={`choice${index}`} value="choice2" className='ml-2 mr-2'
-          checked={answers[currentQuestionIndex + index] === 'choice2'}
-          onChange={() => handleAnswerChange(currentQuestionIndex + index, 'choice2')}
-        />
-        Choice 2
-      </label>
-      <label>
-        <input type="radio" name={`choice${index}`} value="choice3" className='ml-2 mr-2'
-          checked={answers[currentQuestionIndex + index] === 'choice3'}
-          onChange={() => handleAnswerChange(currentQuestionIndex + index, 'choice3')}
-        />
-        Choice 3
-      </label>
-      <label>
-        <input type="radio" name={`choice${index}`} value="choice4" className='ml-2 mr-2'
-          checked={answers[currentQuestionIndex + index] === 'choice4'}
-          onChange={() => handleAnswerChange(currentQuestionIndex + index, 'choice4')}
-        />
-        Choice 4
-      </label>
-    </form>
+        {Array.isArray(questions) && questions.slice(currentQuestionIndex, currentQuestionIndex + 5).map((question, index) => (
+  <div key={question.id} className='qn mt-2 mb-2 p-3 bg-blue-100' style={{height:'fit-content', width:isSmallScreen?'100%':'90%',borderRadius:'5px'}} >
+    <p>{currentQuestionIndex + index + 1}. {question.questionText}</p>
+    {question.choices.map(choice => (
+  <div key={choice.id} style={{ display: 'flex', alignItems: 'center' }}>
+    <input className='mr-2 ml-2'
+      type="radio" 
+      id={choice.id} 
+      name={question.id} 
+      value={choice.choiceText} 
+      onChange={() => handleChoiceClick(currentQuestionIndex + index, choice.id)}
+    />
+    <label htmlFor={choice.id} style={{ flex: 1 }}>{choice.choiceText}</label>
+  </div>
+))}
   </div>
 ))}
 
+
 <div className='' style={{display: 'flex', flexDirection:'row', width:isSmallScreen?'100%':'90%'}}>
-<button style={{flex:'1'}} className='btn btn-primary' onClick={handleBackClick} disabled={!hasPrevious}>
-        Back
-      </button>
-    <p className='rang' style={{flex:'3', display:'flex',justifyContent:'center',alignItems:'center',height:'100%'}}>{firstQuestionNumber}-{lastQuestionNumber}</p>
-    <button style={{flex:'1', display:hasNext?'':'none'}} className='btn btn-primary' onClick={handleNextClick}>
-        Next
-      </button>
-      <button style={{flex:'1', display:hasNext?'none':''}} className='btn btn-primary' onClick={handleOpenDialog}>
-        Finish Attempt
-      </button>
+<button className='btn btn-primary' style={{flex:'1',}}
+    onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 5)}
+    disabled={currentQuestionIndex === 0}
+  >
+    Previous
+  </button>
+    <p className='rang' style={{flex:'3', display:'flex',justifyContent:'center',alignItems:'center',height:'100%'}}>
+    {currentQuestionIndex + 1} - {Math.min(currentQuestionIndex + 5, questions.length)} 
+    </p>
+    {currentQuestionIndex + 5 < questions.length ? (
+    <button className='btn btn-primary' style={{flex:'1'}}
+      onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 5)}
+    >
+      Next
+    </button>
+  ) : (
+    <button className='btn btn-primary' style={{flex:'1'}}
+      onClick={handleOpenDialog}
+    >
+      Finish Attempt
+    </button>
+  )}
   </div>
 </div>
         
@@ -180,7 +162,7 @@ return(
        </div>
 
        <div className='question-status-container' style={{display: 'flex', justifyContent: 'center',width:'95%', flexDirection:'column',margin:'5px'}}>
-        <div className='' style={{flex:'3',display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-between',borderBottom:'1px solid gray',borderTop:'1px solid gray'}}>
+        <div className='' style={{flex:'2',display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-between',borderBottom:'1px solid gray',borderTop:'1px solid gray'}}>
             <div className='' style={{flex:'1',display:'flex', flexDirection:'row',alignItems:'center',justifyContent:'flex-start'}}>
                 <p style={{
         width: '30px',
@@ -214,10 +196,10 @@ return(
                 style={{display:'flex',alignItems:'center',justifyContent:'center',textAlign:'center',height:'100%',margin:'0'}}>Unanswered</p>
             </div>
         </div>
-        <div className='' style={{flex:'3', display:'flex',flexDirection:'row',
+    <div className='' style={{flex:'3', display:'flex',flexDirection:'row',
         flexWrap:'wrap',alignContent:'start'
         }}>
-  {answers.map((answer, index) => (
+   {Array.isArray(answers) && answers.map((answer, index) => (
     <div 
       key={index}
       className={`question-status-box ${answer !== null ? 'answered' : ''}`}

@@ -123,7 +123,9 @@ const handleOpenDialog = (booking) => {
       <div className='navtwo' style={{flex:'1'}}>
                     <NavbarTwo/>
                 </div>
-      <div className='' style={{width:isSmallScreen?'100vw':'90%', flex:'9',}}>
+      <div className='bg-red-100'
+       style={{width:isSmallScreen?'100vw':'100%', flex:'9',
+       backgroundColor:'white', alignItems:'center',display:'flex',flexDirection:'column'}}>
         <div className='' style={{display:'flex',flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
         <h3 className='' style={{flex:'1'}}>My Bookings</h3>
         <p style={{flex:'1'}}>Here are credentials about bookings you've made</p>
@@ -199,7 +201,7 @@ const handleOpenDialog = (booking) => {
   </Table>
 </TableContainer> */}
 
-<div className='' style={{display:'flex', alignItems:'center', justifyContent:'center',width:isSmallScreen?'100vw':'100%'}}>
+<div className='' style={{display:'flex', alignItems:'center', justifyContent:'center',width:isSmallScreen?'100vw':'90%'}}>
 <TableContainer className='mt-3' component={Paper} style={{width:isSmallScreen?'95%':'90%', boxShadow:'0 0 10px rgba(0,0,0,0.1)'}}>
     <Table>
     <TableHead>

@@ -44,11 +44,11 @@ function MyResults() {
          borderRadius:'5px',
          backgroundColor:'white',
         }}>
-            <div className='results-div-one ' style={{flex:'1',width:isSmallScreen?'50%':'30%', display:'flex',flexDirection:'row', alignItems:'center', justifyContent:'center', overflow:'hidden'}}>
-            <img src={score} alt='results' style={{width:isMediumScreen?'40%':'50%', height:isSmallScreen?'40%':'50%',}}/>
+            <div className='results-div-one ' style={{flex:'2',width:isSmallScreen?'50%':'30%', display:'flex',flexDirection:'row', alignItems:'center', justifyContent:'center', overflow:'hidden'}}>
+            <img src={score} alt='results' style={{width:isMediumScreen?'40%':'70%', height:isSmallScreen?'40%':'50%',}}/>
             </div>
-            <div className='results-div-two  ' style={{flex:'2',width:isSmallScreen?'100vw':'100%', display:'flex',justifyContent:'center'}}>
-<TableContainer className='' component={Paper} style={{width:isSmallScreen?'95%':'80%',height:'60%', border: '1px solid orange'}}>
+            <div className='results-div-two  ' style={{flex:'3',width:isSmallScreen?'100vw':'99%', display:'flex',justifyContent:'center',overflow:'hidden'}}>
+<TableContainer className='' component={Paper} style={{width:isSmallScreen?'95%':'80%',height:isSmallScreen?'60%': '70%', border: '1px solid orange'}}>
     <Table>
     <TableHead>
             

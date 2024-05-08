@@ -126,6 +126,8 @@ function validateForm() {
       }, [myRef]);
 
     return (
+      <div style={{position:'relative'}}>
+      <Loader isOpen={isLoading}/>
       <div className='create-account' ref={myRef}
       style={{ 
         display:'flex',
@@ -232,6 +234,7 @@ function validateForm() {
     <Footer/>
     </div>
         </div>
+      </div>
     );
 };
 
