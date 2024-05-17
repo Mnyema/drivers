@@ -33,7 +33,12 @@ useEffect(() => {
       .then(response => response.json())
       .then(data => {
         setQuestions(data.value);
-        setAnswers(Array(data.value.length).fill(null)); // Initialize answers here
+        const savedAnswers = localStorage.getItem('answers');
+        if (savedAnswers) {
+          setAnswers(JSON.parse(savedAnswers)); // Load from local storage
+        } else {
+          setAnswers(Array(data.value.length).fill(null)); // Initialize answers here
+        }
       });
   }, []);
 
@@ -42,6 +47,7 @@ useEffect(() => {
     setAnswers(prevAnswers => {
       const newAnswers = [...prevAnswers];
       newAnswers[index] = choiceId;
+      localStorage.setItem('answers', JSON.stringify(newAnswers)); // Save to local storage 
       return newAnswers;
     });
   }
@@ -124,6 +130,7 @@ return(
       name={question.id} 
       value={choice.choiceText} 
       onChange={() => handleChoiceClick(currentQuestionIndex + index, choice.id)}
+      checked={answers[currentQuestionIndex + index] === choice.id} 
     />
     <label htmlFor={choice.id} style={{ flex: 1 }}>{choice.choiceText}</label>
   </div>

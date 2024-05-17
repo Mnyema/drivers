@@ -217,7 +217,7 @@ if (!venue) {
     return (
       <div>
         {isLoading ? <Loader /> : (
-        <div className='venue-container' style={{display:'flex', flexDirection:'row', height:'100vh', width:'100vw', padding:'10px',position:'fixed',overflow:'auto',
+        <div className='venue-container' style={{display:'flex', flexDirection:'row', height:'100vh', width:'100vw', padding:'10px',position:'fixed',
          backgroundColor:'#f9f5fd',
          
          }}>
@@ -227,10 +227,10 @@ if (!venue) {
         </div>
       )}
       <div className='' style={{flex:'4',display:'flex', flexDirection:'column', height:'100vh'}}>
-      <div className='navtwo' style={{flex:'1'}}>
+      <div className='navtwo' style={{flex:'1', marginTop:'0'}}>
                     <NavbarTwo/>
                 </div>
-            <div className='' style={{flex:'9',padding:'10px', width:'100%' }}>
+            <div className='after-navtwo' style={{flex:'9',padding:'10px', width:'100%',overflow:'auto' }}>
            <div className='' style={{display:'flex', justifyContent:'flex-start'}}> <h3>{venue.name} </h3> </div>
            <div className='' style={{display:'flex', justifyContent:'flex-start'}}>
            <span><PlaceIcon color='info'/> </span> {venue.address} </div>

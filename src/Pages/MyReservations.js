@@ -123,13 +123,14 @@ const handleOpenDialog = (booking) => {
       <div className='navtwo' style={{flex:'1'}}>
                     <NavbarTwo/>
                 </div>
-      <div className='bg-red-100'
-       style={{width:isSmallScreen?'100vw':'100%', flex:'9',
-       backgroundColor:'white', alignItems:'center',display:'flex',flexDirection:'column'}}>
+      <div className='bg-white '
+       style={{height:'100%', width:isSmallScreen?'100vw':'100%', flex:'9', marginTop:isSmallScreen?'0':'', borderRadius:'5px',
+       backgroundColor:'white', alignItems:'center',justifyContent:isMediumScreen?'center':'', display:'flex',flexDirection:'column'}}>
         <div className='' style={{display:'flex',flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
-        <h3 className='' style={{flex:'1'}}>My Bookings</h3>
-        <p style={{flex:'1'}}>Here are credentials about bookings you've made</p>
-
+          <div className=' mt-2 mb-2' style={{width:isSmallScreen?'90%':'100%'}}>
+        <h3 className='text-2xl' style={{flex:'1'}}>My Bookings</h3>
+        {/* <p style={{flex:'1'}}>Here are credentials about bookings you've made</p> */}
+        </div>
         <Snackbar style={{zIndex:'10000', width: isSmallScreen ? '90vw' : '50%',}}
                  open={openSnackbar}
         //   autoHideDuration={6000}
@@ -148,9 +149,9 @@ const handleOpenDialog = (booking) => {
            </Alert>
           </Snackbar> 
         
-<div style={{width:isSmallScreen?'95%':'90%',display:'flex',flex:'3', justifyContent:'center'}}>
+<div style={{width:isSmallScreen?'95%':'fit-content',display:'flex',flex:'3', justifyContent:'center'}}>
   <Card>
-    <Card.Body className='bg-blue-200 info-card font-mono text-sm' style={{width:'100%', height:isSmallScreen?'fit-content':'50px', borderRadius:'5px', display:'flex', alignItems:'center', borderColor:'blue'}}>
+    <Card.Body className='bg-blue-200 info-card font-mono text-sm' style={{width:'fit-content', height:isSmallScreen?'fit-content':'50px', borderRadius:'5px', display:'flex', alignItems:'center', borderColor:'blue'}}>
     <span className='mr-2'><InfoIcon /></span> Kindly carry your valid NIDA card and be at the venue 30 minutes before the session starts.
       </Card.Body>
   </Card>
@@ -201,7 +202,7 @@ const handleOpenDialog = (booking) => {
   </Table>
 </TableContainer> */}
 
-<div className='' style={{display:'flex', alignItems:'center', justifyContent:'center',width:isSmallScreen?'100vw':'90%'}}>
+<div className='' style={{display:'flex', alignItems:'center', justifyContent:'center',width:isSmallScreen?'100vw':'83%'}}>
 <TableContainer className='mt-3' component={Paper} style={{width:isSmallScreen?'95%':'90%', boxShadow:'0 0 10px rgba(0,0,0,0.1)'}}>
     <Table>
     <TableHead>

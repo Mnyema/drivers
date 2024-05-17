@@ -101,15 +101,15 @@ class Reserve extends Component{
         <Sidebar/>
       </div>
     )}
-            <div className='reserve-div' style={{flex:'4', overflowY:'auto', padding:'5px', backgroundColor:'#f9f5fd'}}>
+            <div className='reserve-div' style={{flex:'4', padding:'5px', backgroundColor:'#f9f5fd'}}>
                 <div className='navtwo' style={{flex:'1'}}>
                     <NavbarTwo/>
                 </div>
-                <div className='content' style={{ flex:'9', marginTop:this.isSmallScreen?'20px':''}}>
+                <div className='content after-navtwo' style={{ flex:'9',overflow:'auto', marginTop:this.isSmallScreen?'20px':''}}>
             <h2 className='ml-5 '>Secure Your Spot</h2>
-            <p className='text-base ml-5'>Reserve a venue for your theoretical driving test here </p>
+            <p className='text-base ml-5'>Book a venue for your theoretical driving test here </p>
 
-            <Accordion   style={{width:'90%', marginLeft:'20px'}}>
+            <Accordion   style={{width:'96%', marginLeft:'20px'}}>
       <Accordion.Item eventKey="0">
         <Accordion.Header>Find Venue</Accordion.Header>
         <Accordion.Body>

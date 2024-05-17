@@ -36,7 +36,7 @@ function MyResults() {
                     <NavbarTwo/>
                 </div>
             <div className='' style={{flexGrow:'1', flex:'9',
-             width:isSmallScreen?'100vw':'90%',
+             width:isSmallScreen?'100vw':'100%',
              display:'flex',
              flexDirection:'column',
          alignItems:'center',
@@ -47,7 +47,7 @@ function MyResults() {
             <div className='results-div-one ' style={{flex:'2',width:isSmallScreen?'50%':'30%', display:'flex',flexDirection:'row', alignItems:'center', justifyContent:'center', overflow:'hidden'}}>
             <img src={score} alt='results' style={{width:isMediumScreen?'40%':'70%', height:isSmallScreen?'40%':'50%',}}/>
             </div>
-            <div className='results-div-two  ' style={{flex:'3',width:isSmallScreen?'100vw':'99%', display:'flex',justifyContent:'center',overflow:'hidden'}}>
+            <div className='results-div-two  ' style={{flex:'3',width:isSmallScreen?'100vw':'80%', display:'flex',justifyContent:'center',overflow:'hidden'}}>
 <TableContainer className='' component={Paper} style={{width:isSmallScreen?'95%':'80%',height:isSmallScreen?'60%': '70%', border: '1px solid orange'}}>
     <Table>
     <TableHead>
