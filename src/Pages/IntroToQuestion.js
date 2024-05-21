@@ -15,7 +15,7 @@ return(
     <div className='' style={{display:'flex', height:'100vh', width:'100vw',position:'fixed', alignItems:'center',justifyContent:'center',backgroundColor:'#f9f5fd'}}>
      <div className='' style={{height:'100%', width:'95%',display:'flex', flexDirection:'column'}}>
         <div className='' style={{display:'flex', flex:'1', width:'100%', alignItems:'center',justifyContent:'flex-start'}}>
-        <h3 className='text-2xl text-center font-mono font-bold'>SaferDriving</h3>
+        <h3 className='text-2xl text-center font-mono font-bold'>Driver-Centric Theoretical Testing System</h3>
         </div>
        <div className='' style={{display:'flex', flex:'9',width:'100%', justifyContent:'center', }}>
         <div className='' style={{display:'flex',alignItems:'center',justifyContent:'center',width:'90%', height:'90%', flexDirection:'column',backgroundColor:'white'}}>

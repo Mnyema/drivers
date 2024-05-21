@@ -103,7 +103,7 @@ return(
 </Dialog>
 
         <div className='' style={{flex:3, alignItems:'center', justifyContent:'flex-start'}}>
-        <h3 className='text-2xl text-center font-mono font-bold' style={{display:'flex', justifyContent:'flex-start'}}>SaferDriving</h3>
+        <h3 className='text-2xl text-center font-mono font-bold' style={{display:'flex', justifyContent:'flex-start'}}>Driver-Centric Theoretical Testing System</h3>
         </div>
         
         <div className='' style={{flex:'1',display:'flex',width:'100%', height:'90%', alignItems:'center',justifyContent:'flex-end'}}>

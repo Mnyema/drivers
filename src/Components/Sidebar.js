@@ -67,7 +67,7 @@ const Sidebar = ({ onClick }) => {
         />
       </li>
             <li style={{display:isSmallScreen?'none':'flex', alignItems:'center', justifyContent:'center', height:'50px'}}>
-            <h1 className='text-2xl text-blue-100 font-mono font-bold ' style={{display:'flex', alignItems:'center', justifyContent:'center'}}>SaferDriving</h1>
+            <h1 className='text-2xl text-blue-100 font-mono font-bold ' style={{display:'flex', alignItems:'center', justifyContent:'center'}}>Driver-Centric Theoretical Testing System</h1>
             </li>
             <hr style={{display:isSmallScreen?'none':'flex'}}/>
             <li className='sidebar-item' >

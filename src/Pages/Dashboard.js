@@ -181,7 +181,7 @@ const logout = () => {
     
 
                <div className='' style={{display:'flex', flex:'3'}}>
-               <h4 className='font-mono font-bold' style={{display:isMediumScreen?'none':''}}> SaferDriving 
+               <h4 className='font-mono font-bold' style={{display:isMediumScreen?'none':''}}> Driver-Centric Theoretical Testing System 
                 {/* <span className='text-blue-900 font-mono text-3xl'> {user.firstName} </span> */}
                 </h4>
                 </div>

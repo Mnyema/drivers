@@ -22,18 +22,20 @@ function Footer() {
              backdropFilter: 'blur(10px)',
              WebkitBackdropFilter: 'blur(10px)',
          }}>
-            <div className='copy-div h-full text-sm' style={{flex:'3', height:'100%',display:'flex', alignItems:'center'}}>
-           <p className='ml-4 h-full text-white' style={{display:'flex', alignItems:'center', justifyContent:'center', height:'100%'}}>
-            Copyright @ 2024. SaferDriving</p> 
-            </div>
-            <div className='icon-div h-full' style={{flex:'2', height:'100%',display:'flex', alignItems:'center'}}>
+            <div className='copy-div h-full text-sm' style={{flex:'1', height:'100%',display:'flex',flexDirection:'column', }}>
+             <p className='mt-0 mb-0 text-yellow-500'>WASILIANA NASI</p>
+             <p className='mt-0 mb-0 text-white'>Namba ya dharura 111 / 112</p>
+             <p className='mt-0 mb-0 text-white'>S.L.P 961, 4 Mtaa wa Posta, DODOMA</p>
+             <p className='mt-0 mb-0  text-white'>Simu: 0262323585 / +255 787 668 306</p>
+             <p className='mt-0 mb-0 text-white'>Fax: 0262323586</p>
+             <div className='icon-div h-full' style={{ height:'100%',display:'flex', }}>
             <ul className='hidden md:flex md:flex-row md:items-center md:gap-10 h-full' style={{ display: 'flex',
              listStyle: 'none',
              flex: '2',
               gap: '15px',
               display:'flex',
               alignItems:'center',
-              justifyContent:'center',
+             // justifyContent:'center',
               height:'100%',
               color:'white',
               marginTop:'0',
@@ -47,7 +49,11 @@ function Footer() {
                 <li className='' style={{display: isSmallScreen ? 'none' : 'block'}}><LinkedInIcon /></li>
                 <li className='' style={{display: isSmallScreen ? 'none' : 'block'}}><XIcon /></li>
             </ul>
+            </div>           
             </div>
+           <div cl>
+
+           </div>
         </div>
 );
 }

@@ -22,7 +22,7 @@ const Navbar = () => {
     const [firstName, setFirstName] = useState('');
     const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [language, setLanguage] = useState('english');
+    const [language, setLanguage] = useState('swahili');
 
     const handleLanguageChange = (newLanguage) => {
       setLanguage(newLanguage);
@@ -132,7 +132,8 @@ const Navbar = () => {
              backdropFilter: 'blur(10px)',
              WebkitBackdropFilter: 'blur(10px)', 
              }}>
-            <h1 className=' font-bold ml-5 font-mono text-2xl   text-blue-100' style={{flex:'1'}}>SaferDriving</h1>
+           <span className={language === 'english' ? '' : 'hidden'}> <h1 className=' ml-5 font-mono text-xl   text-blue-100' style={{flex:'3'}}>Driver-Centric Theoretical Testing System</h1></span>
+           <span className={language === 'swahili' ? '' : 'hidden'}> <h1 className=' ml-5 font-mono text-xl   text-blue-100' style={{flex:'3'}}>Mfumo wa Kupima Nadharia ya Udereva</h1></span>
 
          
       
@@ -152,9 +153,17 @@ const Navbar = () => {
             }}
              >
                 <li className='nav-item' style={{display: isSmallScreen ? 'none' : 'block'}}>
-                  <NavLink exact="true" to="/" activeclassname="active-link">Welcome</NavLink></li>
-                <li className='nav-item' style={{display: isSmallScreen ? 'none' : 'block'}}><NavLink to="/about" activeclassname="active-link">About</NavLink></li>
-                <li className='nav-item' style={{display: isSmallScreen ? 'none' : 'block'}}><NavLink to="/contact" activeclassname="active-link">Contact</NavLink></li>
+                 <span className={language === 'english' ? '' : 'hidden'}> <NavLink exact="true" to="/" activeclassname="active-link" >Welcome</NavLink></span>
+                 <span className={language === 'swahili' ? '' : 'hidden'}> <NavLink exact="true" to="/" activeclassname="active-link" >Mwanzo</NavLink></span>
+                 </li>
+                <li className='nav-item' style={{display: isSmallScreen ? 'none' : 'block'}}>
+                <span className={language === 'english' ? '' : 'hidden'}><NavLink to="/about" activeclassname="active-link">About</NavLink></span>
+                <span className={language === 'swahili' ? '' : 'hidden'}> <NavLink to="/about" activeclassname="active-link">Kuhusu Sisi</NavLink></span>
+                </li>
+                <li className='nav-item' style={{display: isSmallScreen ? 'none' : 'block'}}>
+                <span className={language === 'english' ? '' : 'hidden'}> <NavLink to="/contact" activeclassname="active-link">Contact</NavLink></span>
+                <span className={language === 'swahili' ? '' : 'hidden'}><NavLink to="/contact" activeclassname="active-link">Mawasiliano</NavLink></span>
+                </li>
                
     <li>
     <div className="btn-group" style={{zIndex:'9999'}}>
@@ -162,8 +171,8 @@ const Navbar = () => {
     {isSmallScreen ? 
         <LanguageIcon /> : 
         <>
-        <span className={language === 'english' ? '' : 'hidden'}>Language</span>
         <span className={language === 'swahili' ? '' : 'hidden'}>Lugha</span>
+        <span className={language === 'english' ? '' : 'hidden'}>Language</span>
       </>
       }
     </button>
