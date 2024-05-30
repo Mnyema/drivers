@@ -15,7 +15,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 const Sidebar = ({ onClick }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [language, setLanguage] = useState('english');
+    const [language, setLanguage] = useState('swahili');
     const [activeItem, setActiveItem] = useState('');
     const [sidebarWidth, setSidebarWidth] = useState('100');
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -66,34 +66,64 @@ const Sidebar = ({ onClick }) => {
           style={{ color: 'white' }}
         />
       </li>
-            <li style={{display:isSmallScreen?'none':'flex', alignItems:'center', justifyContent:'center', height:'50px'}}>
-            <h1 className='text-2xl text-blue-100 font-mono font-bold ' style={{display:'flex', alignItems:'center', justifyContent:'center'}}>Driver-Centric Theoretical Testing System</h1>
+            <li className='mt-4 mb-2' style={{display:isSmallScreen?'none':'flex', alignItems:'center', justifyContent:'center', height:'50px'}}>
+            <span className={language === 'english' ? '' : 'hidden'}>
+                <h1 className='text-lg text-blue-100 font-mono font-bold  ' style={{display:'flex', alignItems:'center', justifyContent:'center'}}>Driver-Centric Theoretical Testing System</h1>
+            </span>
+            <span className={language === 'swahili' ? '' : 'hidden'}>
+                <h1 className='text-lg text-blue-100 font-mono font-bold' style={{display:'flex', alignItems:'center', justifyContent:'center'}}>Mfumo wa Kupima Nadharia ya Dereva</h1>
+            </span>
             </li>
             <hr style={{display:isSmallScreen?'none':'flex'}}/>
             <li className='sidebar-item' >
-            <NavLink to="/dashboard" activeclassname="active" onClick={() => isSmallScreen && setIsSidebarOpen(false)}>
+            <span className={language === 'english' ? '' : 'hidden'}><NavLink to="/dashboard" activeclassname="active" onClick={() => isSmallScreen && setIsSidebarOpen(false)}>
                         <span><GridViewIcon/></span> Dashboard
                     </NavLink>
-                </li>
-                <li className="sidebar-item">
-                    <NavLink to="/reserve" activeclassname="active">
-                        <span><AddLocationIcon/></span> Book seat
+            </span>
+            <span className={language === 'swahili' ? '' : 'hidden'}><NavLink to="/dashboard" activeclassname="active" onClick={() => isSmallScreen && setIsSidebarOpen(false)}>
+                        <span><GridViewIcon/></span> Dashibodi
                     </NavLink>
+                    </span>
                 </li>
                 <li className="sidebar-item">
-                    <NavLink to="/myreservations" activeclassname="active">
+                <span className={language === 'english' ? '' : 'hidden'}><NavLink to="/reserve" activeclassname="active">
+                        <span><AddLocationIcon/></span> Book venue
+                    </NavLink>
+                    </span>
+                    <span className={language === 'swahili' ? '' : 'hidden'}><NavLink to="/reserve" activeclassname="active">
+                        <span><AddLocationIcon/></span> Chagua kituo
+                    </NavLink>
+                    </span>
+                </li>
+                <li className="sidebar-item">
+                <span className={language === 'english' ? '' : 'hidden'}> <NavLink to="/myreservations" activeclassname="active">
                         <span><EventSeatIcon/></span>  Bookings
                     </NavLink>
+                    </span>
+                    <span className={language === 'swahili' ? '' : 'hidden'}> <NavLink to="/myreservations" activeclassname="active">
+                        <span><EventSeatIcon/></span>  Nafasi Zangu
+                    </NavLink>
+                    </span>
                 </li>
                 <li className="sidebar-item" >
-                    <NavLink to="/results"  activeclassname="active">
+                <span className={language === 'english' ? '' : 'hidden'}><NavLink to="/results"  activeclassname="active">
                         <span><AssessmentIcon/></span>  Results
                     </NavLink>
+                    </span>
+                    <span className={language === 'swahili' ? '' : 'hidden'}><NavLink to="/results"  activeclassname="active">
+                        <span><AssessmentIcon/></span>  Matokeo
+                    </NavLink>
+                    </span>
                 </li>
                 <li className="sidebar-item">
-                    <NavLink to="/certificate" activeclassname="active">
+                <span className={language === 'english' ? '' : 'hidden'}> <NavLink to="/certificate" activeclassname="active">
                         <span><WorkspacePremiumIcon/></span>  Certificate
                     </NavLink>
+                    </span>
+                    <span className={language === 'swahili' ? '' : 'hidden'}> <NavLink to="/certificate" activeclassname="active">
+                        <span><WorkspacePremiumIcon/></span>  Cheti
+                    </NavLink>
+                    </span>
                 </li>
                 
                 

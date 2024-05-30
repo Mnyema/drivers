@@ -21,6 +21,8 @@ import Footer from './Components/Footer';
 import Question from './Pages/Question';
 import IntroToQuestion from './Pages/IntroToQuestion';
 import FinishAttempt from './Pages/FinishAttempt';
+import Register from './Pages/Register';
+import Ingia from './Pages/Ingia';
 import {BrowserRouter , Router, Route, Routes} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -52,6 +54,8 @@ function App() {
         <Route path='/question' element={<Question/>} />
         <Route path='/intro-to-question' element={<IntroToQuestion/>} />
         <Route path='/finish-attempt' element={<FinishAttempt/>} />
+        <Route path='/register' element={<Register/>} />
+        <Route path='/ingia' element={<Ingia/>} />
       </Routes>
       </BrowserRouter>
       </UserContextProvider>

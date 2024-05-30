@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import '../App.css';
 import Sidebar from '../Components/Sidebar';
 import NavbarTwo from '../Components/NavbarTwo';
@@ -15,6 +15,7 @@ import Button from '@mui/material/Button';
 function MyResults() {
     const isMediumScreen = window.matchMedia('(min-width: 768px)').matches;
       const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+      const [language, setLanguage] = useState('swahili');
     return (
         <div className='results-container' style={{ display:'flex',flexDirection:'row', backgroundColor:'#f9f5fd', height:'100vh',width:'100vw',position:'fixed'}}>
            {!isSmallScreen && (
@@ -54,7 +55,7 @@ function MyResults() {
             
                 <TableRow  style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                     <TableCell className='font-semibold'>
-                        Examination Results
+                    {language === 'english' ? 'Examination Results ' : 'Matokeo ya Mtihani'}
                     </TableCell>
                 </TableRow>
             
@@ -63,7 +64,7 @@ function MyResults() {
                         <TableRow >
                             <TableCell>
                                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <span className='font-semibold'> Name:</span>
+                                    <span className='font-semibold'> {language === 'english' ? 'Name:' : 'Jina:'}</span>
                                     <span></span>
                                 </div>
                             </TableCell>
@@ -71,7 +72,7 @@ function MyResults() {
                         <TableRow >
                             <TableCell>
                                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <span className='font-semibold'>Score:</span>
+                                    <span className='font-semibold'>{language === 'english' ? 'Score:' : 'Alama:'}</span>
                                     <span></span>
                                 </div>
                             </TableCell>
@@ -79,7 +80,7 @@ function MyResults() {
                         <TableRow >
                             <TableCell>
                                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <span className='font-semibold'>Status:</span>
+                                    <span className='font-semibold'>{language === 'english' ? 'Status:' : 'Hali:'}</span>
                                     <span></span>
                                 </div>
                             </TableCell>
