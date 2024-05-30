@@ -120,12 +120,13 @@ const Navbar = () => {
 
     return (
         
-        <nav className='h-14  nav-content' style={{ 
+        <nav className='h-14  nav-content font-bold' style={{ 
             display: 'flex',
             flexDirection: 'row', 
             justifyContent: 'flex-end',
              alignItems: 'center',
              width:'100%',
+             height:isSmallScreen?'fit-content':'',
              position:'fixed',
              marginBottom:'0',
              backgroundColor:'rgba(0, 0, 0, 0.3)',

@@ -35,7 +35,7 @@ function Dashboard() {
   const [booking, setBooking] = useState(null);
   const isMediumScreen = window.matchMedia('(min-width: 768px)').matches;
       const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
-      const [language, setLanguage] = useState('english');
+      const [language, setLanguage] = useState('swahili');
 const [isOpen, setIsOpen] = useState(false);
 const { user, setUser } = useContext(UserContext);
 const navigate = useNavigate();
@@ -181,7 +181,7 @@ const logout = () => {
     
 
                <div className='' style={{display:'flex', flex:'3'}}>
-               <h4 className='font-mono font-bold' style={{display:isMediumScreen?'none':''}}> Driver-Centric Theoretical Testing System 
+               <h4 className='font-mono font-bold' style={{display:isMediumScreen?'none':''}}> DCTTS
                 {/* <span className='text-blue-900 font-mono text-3xl'> {user.firstName} </span> */}
                 </h4>
                 </div>

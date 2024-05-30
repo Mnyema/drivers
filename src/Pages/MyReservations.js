@@ -32,6 +32,7 @@ function MyReservations() {
   const [cancelledBookings, setCancelledBookings] = useState([]);
   const { user } = useContext(UserContext);
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [language, setLanguage] = useState('swahili');
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     
@@ -128,7 +129,7 @@ const handleOpenDialog = (booking) => {
        backgroundColor:'white', alignItems:'center',justifyContent:isMediumScreen?'center':'', display:'flex',flexDirection:'column'}}>
         <div className='' style={{display:'flex',flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
           <div className=' mt-2 mb-2' style={{width:isSmallScreen?'90%':'100%'}}>
-        <h3 className='text-2xl' style={{flex:'1'}}>My Bookings</h3>
+        <h3 className='text-2xl' style={{flex:'1'}}>{language === 'english' ? 'My Bookings' : 'Nafasi Zangu'}</h3>
         {/* <p style={{flex:'1'}}>Here are credentials about bookings you've made</p> */}
         </div>
         <Snackbar style={{zIndex:'10000', width: isSmallScreen ? '90vw' : '50%',}}
@@ -145,14 +146,14 @@ const handleOpenDialog = (booking) => {
              <CloseIcon fontSize="small" />
              </IconButton>
             }>
-    Booking cancelled successfully!
+    {language === 'english' ? 'Booking Cancelled Successfully!' : 'Umefanikiwa kufuta nafasi!'}
            </Alert>
           </Snackbar> 
         
 <div style={{width:isSmallScreen?'95%':'fit-content',display:'flex',flex:'3', justifyContent:'center'}}>
   <Card>
     <Card.Body className='bg-blue-200 info-card font-mono text-sm' style={{width:'fit-content', height:isSmallScreen?'fit-content':'50px', borderRadius:'5px', display:'flex', alignItems:'center', borderColor:'blue'}}>
-    <span className='mr-2'><InfoIcon /></span> Kindly carry your valid NIDA card and be at the venue 30 minutes before the session starts.
+    <span className='mr-2'><InfoIcon /></span>{language === 'english' ? 'Kindly carry your valid NIDA card and be at the venue 30 minutes before the session starts.' : 'Tafadhali beba kitambulisho chako cha NIDA na fika kwenye kituo cha mtihani dakika 30 kabla ya mtihani kuanza.'} 
       </Card.Body>
   </Card>
 </div>
@@ -209,7 +210,7 @@ const handleOpenDialog = (booking) => {
             {bookings.length === 0 && (
                 <TableRow>
                     <TableCell>
-                        <span><AutorenewIcon/></span>You don't have any booking yet
+                        <span><AutorenewIcon/></span>{language === 'english' ? 'You do not have any booking yet ' : 'Huna nafasi yoyote uliyoweka bado'}
                     </TableCell>
                 </TableRow>
             )}
@@ -225,7 +226,7 @@ const handleOpenDialog = (booking) => {
                         <TableRow key={booking.id + 'venueName'}>
                             <TableCell>
                                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <span className='font-semibold'>Venue Name:</span>
+                                    <span className='font-semibold'>{language === 'english' ? 'Venue Name:' : 'Jina la Kituo:'}</span>
                                     <span>{booking.venueName}</span>
                                 </div>
                             </TableCell>
@@ -233,36 +234,42 @@ const handleOpenDialog = (booking) => {
                         <TableRow key={booking.id + 'venueAddress'}>
                             <TableCell>
                                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <span className='font-semibold'>Venue Address:</span>
+                                    <span className='font-semibold'>{language === 'english' ? 'Venue Address:' : 'Anuani ya Kituo:'}</span>
                                     <span>{booking.venueAddress}</span>
                                 </div>
                             </TableCell>
                         </TableRow>
-                        <TableRow key={booking.id + 'date'}>
-                            <TableCell>
-                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <span className='font-semibold'>Date:</span>
-                                    <span>{date}</span>
-                                </div>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow key={booking.id + 'time'}>
-                            <TableCell>
-                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <span className='font-semibold'>Time:</span>
-                                    <span>{time}</span>
-                                </div>
-                            </TableCell>
-                        </TableRow>
+   <TableRow key={booking.id + 'date'}>
+    <TableCell>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <span className='font-semibold'>{language === 'english' ? 'Date:' : 'Tarehe:'}</span>
+            <span>{new Date(booking.sessionDate).toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: '2-digit',
+                year: '2-digit'
+            })}</span>
+        </div>
+    </TableCell>
+</TableRow>
+<TableRow key={booking.id + 'time'}>
+    <TableCell>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <span className='font-semibold'>{language === 'english' ? 'Time:' : 'Muda:'}</span>
+            <span>{new Date(booking.sessionDate).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })} - 
+            {new Date(new Date(booking.sessionDate).getTime() + 30*60000).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}</span>
+        </div>
+    </TableCell>
+</TableRow>
+                        
                         <TableRow key={booking.id + 'cancel'}>
                             <TableCell >
                               <div style={{display:'flex', justifyContent:'space-between'}}>
                               <button className='btn btn-outline-primary btn-sm' onClick={redirectToQuestion}>
-                                  Attempt Test
+                              {language === 'english' ? 'Attempt Test' : 'Fanya Mtihani'}
                                 </button>
                                 {!cancelledBookings.includes(booking.id) && (
                                     <button  className='btn btn-outline-danger btn-sm' onClick={() => handleOpenDialog(booking)}>
-                                        Cancel <span> <NotInterestedIcon fontSize='sm'/></span>
+                                        {language === 'english' ? 'Cancel' : 'Futa Nafasi'} <span> <NotInterestedIcon fontSize='sm'/></span>
                                     </button>
                                 )}
 
@@ -278,23 +285,28 @@ const handleOpenDialog = (booking) => {
 </div>
 
 <Dialog open={openDialog} onClose={handleCloseDialog}>
-  <DialogTitle>Confirm Cancelling Reservation</DialogTitle>
+  <DialogTitle>{language === 'english' ? 'Confirm Cancelling Reservation' : 'Hakiki Kufuta Nafasi'}</DialogTitle>
   <DialogContent>
   <DialogContentText>
-      Are you sure you want to cancel the reservation made for <span>{currentBooking?.venueName} </span>
-       in <span className='text-warning'>{currentBooking?.venueAddress} </span>
-       on <span className='text-warning'>{new Date(currentBooking?.sessionDate).toLocaleDateString()} </span> 
-       at <span className='text-warning'>{new Date(currentBooking?.sessionDate).toLocaleTimeString()}</span>?
+  {language === 'english' ? 'Are you sure you want to cancel reservation made for ' : 'Je, una uhakika wa kufuta nafasi iliyowekwa kwenye kituo '} <span className='text-warning'>{currentBooking?.venueName} </span>
+  {language === 'english' ? 'in ' : 'chenye anuani ya '} <span className='text-warning'>{currentBooking?.venueAddress} </span>
+  {language === 'english' ? 'on ' : 'tarehe '}<span className='text-warning'>{new Date(currentBooking?.sessionDate).toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: '2-digit',
+                year: '2-digit'
+            })} </span> 
+  {language === 'english' ? 'at ' : 'muda '} <span className='text-warning'>{new Date(currentBooking?.sessionDate).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })} - 
+            {new Date(new Date(currentBooking?.sessionDate).getTime() + 30*60000).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}</span>?
     </DialogContentText>
   </DialogContent>
   <DialogActions>
     <Button onClick={handleCloseDialog} color="error" variant='outlined'>
-      Back
+    {language === 'english' ? 'Back' : 'Rudi'}
     </Button>
     <Button onClick={() => { handleCancelReservation(); handleCloseDialog();}}
     
     color="error" variant='contained'>
-      Yes, Cancel
+    {language === 'english' ? 'Cancel Reservation' : 'Futa Nafasi'}
     </Button>
   </DialogActions>
 </Dialog>

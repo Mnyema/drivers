@@ -55,7 +55,7 @@ function VenueAndItsSession() {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [open, setOpen] = useState(false);
     const [selectedSession, setSelectedSession] = useState(null);
-
+  const [language, setLanguage] = useState('swahili');
     const [userId, setUserId] = useState(null);
       const [sessionId, setSessionId] = useState(null);
 
@@ -249,26 +249,35 @@ if (!venue) {
              <CloseIcon fontSize="small" />
              </IconButton>
             }>
-    Successfully booked the venue!
+    {language === 'english' ? 'Successfully Booked the Venue!' : 'Umefanikiwa Kuweka Nafasi!'}
            </Alert>
           </Snackbar> 
 
-            <p className='mt-2'>Available Sessions for this month</p>
+            <p className='mt-2'>{language === 'english' ? 'Available Sessions for the month' : 'Nafasi zilizopo ndani ya mwezi'}</p>
         <div className=' mt-2' style={{display:'flex', justifyContent:'center',width:'100%'}}>
         <TableContainer component={Paper} style={{width:'100%', boxShadow:'0 0 10px rgba(0,0,0,0.2)'}}>
   <Table aria-label="simple table">
     <TableHead>
       <TableRow>
-        <TableCell style={{fontWeight:'bold'}}>Session Date</TableCell>
-        <TableCell style={{fontWeight:'bold'}}>Time</TableCell>
-        <TableCell style={{fontWeight:'bold'}}>Current Capacity</TableCell>
+        <TableCell style={{fontWeight:'bold'}}>{language === 'english' ? 'Session Date' : 'Tarehe'}</TableCell>
+        <TableCell style={{fontWeight:'bold'}}>{language === 'english' ? 'Time' : 'Muda'}</TableCell>
+        <TableCell style={{fontWeight:'bold'}}>{language === 'english' ? 'Current Capacity' : 'Nafasi Zilizopo'}</TableCell>
       </TableRow>
     </TableHead>
     <TableBody>
       {sessions.map((session) => (
         <TableRow key={session.id}>
-          <TableCell>{new Date(session.sessionDate).toLocaleDateString()}</TableCell>
-          <TableCell>{new Date(session.sessionDate).toLocaleTimeString()}</TableCell>
+          <TableCell>
+  {new Date(session.sessionDate).toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: '2-digit'
+  })}
+</TableCell>
+          <TableCell> <TableCell>
+  {new Date(session.sessionDate).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })} - 
+   {new Date(new Date(session.sessionDate).getTime() + 30*60000).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}
+</TableCell></TableCell>
           <TableCell>{venue.capacity - session.currentCapacity}</TableCell>
           <TableCell>
             <button className='btn btn-outline-primary btn-sm' 
@@ -276,7 +285,7 @@ if (!venue) {
             title={`Session ID: ${session.id}`}
             disabled={venue.capacity - session.currentCapacity === 0}
             >
-            Book
+           {language === 'english' ? 'Book' : 'Weka Nafasi'}
             </button></TableCell>
         </TableRow>
       ))}
@@ -285,29 +294,35 @@ if (!venue) {
 </TableContainer>
 
 <Dialog open={open} onClose={handleClose}>
-  <DialogTitle>Confirm Reservation</DialogTitle>
+  <DialogTitle>{language === 'english' ? 'Confirm Booking' : 'Hakiki Chaguo'}</DialogTitle>
   <DialogContent>
   {sessionData && (
     <>
     <DialogContentText>
-      Are you sure you want to book <span className='text-warning'>{venue.name}</span>  for the session on
-       <span className='text-warning'> {new Date(sessionData.value.sessionDate).toLocaleDateString()} </span> 
-       at <span className='text-warning'> {new Date(sessionData.value.sessionDate).toLocaleTimeString()}</span>?
+    {language === 'english' ? 'Are you sure you want to book' : 'Je, una uhakika unataka kuweka nafasi katika kituo cha'} <span className='text-warning'>{venue.name}</span>  {language === 'english' ? 'for the session on' : 'tarehe '}
+       <span className='text-warning'> 
+       {new Date(sessionData.value.sessionDate).toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: '2-digit'
+  })}</span> 
+       {language === 'english' ? 'at' : ' muda '} <span className='text-warning'> {new Date(sessionData.value.sessionDate).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })} - 
+{new Date(new Date(sessionData.value.sessionDate).getTime() + 30*60000).toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })}</span>?
     </DialogContentText><br/>
     <DialogContentText className='text-danger'>
-      <span className='font-bold'>Note: </span>You can only book one session at a time.
+      <span className='font-bold'>{language === 'english' ? 'Note' : 'Zingatia:'} </span>{language === 'english' ? 'You can only book one session at atime' : 'Unaweza kuweka nafasi moja tu kwa wakati mmoja'}
     </DialogContentText>
     </>
   )}
   </DialogContent>
   <DialogActions>
     <Button onClick={handleClose} color="primary" variant='outlined'>
-      Cancel
+    {language === 'english' ? 'Cancel' : 'Rudi'}
     </Button>
     <Button onClick={() => { handleBook(); handleClose(); }}
      title={`Session ID: ${sessionId}`}
     color="primary" variant='contained'>
-      Book
+      {language === 'english' ? 'Book' : 'Weka Nafasi'}
     </Button>
   </DialogActions>
 </Dialog>

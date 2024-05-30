@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect ,useState} from 'react';
 import { UserContext } from '../Components/UserContext';
 import Sidebar from '../Components/Sidebar';
 import NavbarTwo from '../Components/NavbarTwo';
@@ -13,9 +13,26 @@ import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import '../App.css';
 
+const translations = {
+  english: {
+    "First Name": "First Name",
+    "Last Name": "Last Name",
+    "Email": "Email",
+    "Mobile Number": "Mobile Number",
+  },
+  swahili: {
+    "Mobile Number": "Namba ya Simu",
+    "First Name": "Jina la Kwanza",
+    "Last Name": "Jina la Mwisho",
+    "Email": "Barua pepe",
+  },
+};
+
 function Profile() {
   const isMediumScreen = window.matchMedia('(min-width: 768px)').matches;
       const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+      const [language, setLanguage] = useState('swahili');
+      const dictionary = translations[language];
   
   const {user, setUser}= useContext(UserContext);
   useEffect(() => {
@@ -57,7 +74,7 @@ flexDirection:'column',
 
 <div className='mt-3 ml-3 pic' style={{flex:isSmallScreen?'1':'2',  display:'flex', flexDirection:isSmallScreen?'column':'row', justifyContent:'flex-end'}}>
 <div className='' style={{flex:isSmallScreen?'1':'3', display:'flex', alignItems:'center', justifyContent:'flex-start'}}>
-<h2 >Profile</h2>
+<h2 >{language === 'english' ? 'Profile' : 'Wasifu'}</h2>
 </div>
 <div className='' style={{flex:isSmallScreen?'3':'1',display:'flex', alignItems:'center', justifyContent:'center'}}>
 <img src={profile} alt='avatar' style={{width:isSmallScreen?'50%':'100%', height:isSmallScreen?'80%':'100%', borderRadius:'50%'}}/>
@@ -68,7 +85,7 @@ flexDirection:'column',
 <div style={{flex:'1', display:'flex', alignItems:'center', justifyContent:'center'}}>
 <TextField style={{width:'90%'}}
           id="standard-read-only-input"
-          label="First Name"
+          label={dictionary["First Name"]}
           defaultValue={user.firstName}
           InputProps={{
             readOnly: true,
@@ -87,7 +104,7 @@ flexDirection:'column',
 <div style={{flex:'1', display:'flex', alignItems:'center', justifyContent:'center'}}>
 <TextField style={{width:'90%'}}
           id="standard-read-only-input"
-          label="Last Name"
+          label={dictionary["Last Name"]}
           defaultValue={user.lastName}
           InputProps={{
             readOnly: true,
@@ -108,7 +125,7 @@ flexDirection:'column',
   <div style={{flex:'1', display:'flex', alignItems:'center', justifyContent:'center'}}>
 <TextField style={{width:'90%'}}
           id="standard-read-only-input"
-          label="Email"
+          label={dictionary["Email"]}
           defaultValue={user.email}
           InputProps={{
             readOnly: true,
@@ -127,7 +144,7 @@ flexDirection:'column',
 <div style={{flex:'1', display:'flex', alignItems:'center', justifyContent:'center'}}>
 <TextField style={{width:'90%'}}
           id="standard-read-only-input"
-          label="Mobile Number"
+          label={dictionary["Mobile Number"]}
           defaultValue={user.phone}
           InputProps={{
             readOnly: true,

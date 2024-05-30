@@ -14,7 +14,7 @@ import Sidebar from './Sidebar';
 function NavbarTwo(){
     const isMediumScreen = window.matchMedia('(min-width: 768px)').matches;
       const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
-      const [language, setLanguage] = useState('english');
+      const [language, setLanguage] = useState('swahili');
 const [isOpen, setIsOpen] = useState(false);
 const { user, setUser } = useContext(UserContext);
 const navigate = useNavigate();

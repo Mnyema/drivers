@@ -358,3 +358,16 @@ body {
   scrollbar-width: none;
   background-color: white;
 }
+.register{
+  background-image: url(./Images/blurred-traffic-light-trails-road.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+}
+.landing-page{
+  background-image: url(./Images/udart.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

@@ -14,9 +14,12 @@ import { Link } from 'react-router-dom';
 import NavbarTwo from '../Components/NavbarTwo';
 
 class Reserve extends Component{
+    
     constructor(props) {
         super(props);
-    
+        this.state = {
+            language: 'swahili',
+        };
         this.isMediumScreen = window.matchMedia('(min-width: 768px)').matches;
         this.isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
     this.state = {
@@ -106,12 +109,14 @@ class Reserve extends Component{
                     <NavbarTwo/>
                 </div>
                 <div className='content after-navtwo' style={{ flex:'9',overflow:'auto', marginTop:this.isSmallScreen?'20px':''}}>
-            <h2 className='ml-5 '>Secure Your Spot</h2>
-            <p className='text-base ml-5'>Book a venue for your theoretical driving test here </p>
+                
+            <p className='text-base ml-5'>
+            {this.state.language === 'english' ? 'Book a venue for your theoretical driving test here' : 'Weka nafasi yakofanya mtihani wa nadharia ya udereva hapa'}
+                </p>
 
             <Accordion   style={{width:'96%', marginLeft:'20px'}}>
       <Accordion.Item eventKey="0">
-        <Accordion.Header>Find Venue</Accordion.Header>
+        <Accordion.Header>{this.state.language === 'english' ? 'Find Venue' : 'Tafuta Kituo'}</Accordion.Header>
         <Accordion.Body>
         <form  className=''>
                 <div className='filter ' style={{display:'flex', 
@@ -121,16 +126,7 @@ class Reserve extends Component{
                              width: '100%',
                              gap:this.isSmallScreen?'': '20px'
                            }}>
-                <div className='form-floating mb-3 flex-1 ' style={{display:'flex', justifyContent:'center',
-                width:this.isSmallScreen?'100%':'', alignItems:'center', height:"100%"}}>
-                    <input 
-                    type='date' className='form-control ' id='date' name='date' placeholder='Pick a date'
-                     min={new Date().toISOString().slice(0, 10)} 
-                     max={new Date(new Date().getFullYear(), new Date().getMonth() + 3, 0).toISOString().slice(0, 10)}
-                     required
-                     onChange={e => this.setState({ selectedDate: e.target.value })}/>
-                    <label htmlFor='floatingDate' className=' text-lg text-primary '> Pick Date</label>
-                </div>
+                
                 <div className='form-floating mb-3 flex-1 ' style={{width:this.isSmallScreen?'100%':'', }}>
                     <select className='form-control' id='region' name='region' 
                     required
@@ -140,12 +136,23 @@ class Reserve extends Component{
                             <option key={region} value={region}>{region}</option>
                         ))}
                     </select>
-                    <label htmlFor='floatingSelect' className='text-primary text-lg'><span><LocationOnIcon/></span> Choose Region</label>
+                    <label htmlFor='floatingSelect' className='text-primary text-lg'><span><LocationOnIcon/></span> {this.state.language === 'english' ? 'Region' : 'Mkoa'}</label>
+                </div>
+                <div className='form-floating mb-3 flex-1 ' style={{width:this.isSmallScreen?'100%':'', }}>
+                    <select className='form-control' id='district' name='district' 
+                    required
+                    onChange={e => this.setState({ selectedRegion: e.target.value })}>
+                        <option value='' className=''> </option>
+                        
+                            <option  value=''>{this.state.language === 'english' ? 'District' : 'Wilaya'}</option>
+                        
+                    </select>
+                    <label htmlFor='floatingSelect' className='text-primary text-lg'><span><LocationOnIcon/></span> {this.state.language === 'english' ? 'District' : 'Wilaya'}</label>
                 </div>
                 <div className='flex-1  '
                 style={{display:'flex', alignItems:'center', justifyContent:'center', width:this.isSmallScreen?'100%':'', }}>
                   <button onClick={()=>this.filterSessions(this.state.selectedRegion, this.state.selectedDate)} className="btn btn-primary mb-3 filter-btn"
-                  style={{width:'250px', height:'50px' }}>Filter <span><FilterAltIcon/></span></button>
+                  style={{width:'250px', height:'50px' }}>{this.state.language === 'english' ? 'Filter' : 'Tafuta'} <span><FilterAltIcon/></span></button>
                   </div>
                 </div>
                 
