@@ -64,7 +64,8 @@ function Ingia() {
           <div className="" style={{display:'flex',justifyContent:'center',width:isSmallScreen?'95%': '70%'}}>
               
               <Box className='bg-white p-2' 
-              style={{display:'flex', 
+              style={{display:'flex',  boxShadow: '0 0 10px rgba(80, 79, 79, 0.5)',
+              borderRadius: '5px',
               alignItems:'center',justifyContent:'center',
               flexDirection:'column',borderRadius:'5px',
               backgroundColor:'rgba(0, 0, 0, 0.1)',

@@ -11,6 +11,7 @@ import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import HomeIcon from '@mui/icons-material/Home';
 import CloseIcon from '@mui/icons-material/Close';
+import police from '../Images/poliso logo.png';
 
 
 const Sidebar = ({ onClick }) => {
@@ -66,7 +67,10 @@ const Sidebar = ({ onClick }) => {
           style={{ color: 'white' }}
         />
       </li>
-            <li className='mt-4 mb-2' style={{display:isSmallScreen?'none':'flex', alignItems:'center', justifyContent:'center', height:'50px'}}>
+      <li className='mt-1 mb-4 p-16' style={{display:isSmallScreen?'none':'flex', alignItems:'center', justifyContent:'center', height:'50px'}}>
+            <img src={police} alt="police" style={{width:'', height:''}}/>
+            </li>
+            <li className='mt-2 mb-2' style={{display:isSmallScreen?'none':'flex', alignItems:'center', justifyContent:'center', height:'50px'}}>
             <span className={language === 'english' ? '' : 'hidden'}>
                 <h1 className='text-lg text-blue-100 font-mono font-bold  ' style={{display:'flex', alignItems:'center', justifyContent:'center'}}>Driver-Centric Theoretical Testing System</h1>
             </span>

@@ -40,7 +40,7 @@ function Register() {
   
     const dictionary = translations[language];
   
-    const steps = [ dictionary['Introduction'],dictionary['Personal Information'], dictionary['Nationality'], dictionary['Contact Details']];
+    const steps = [ dictionary['Personal Information'], dictionary['Nationality'], dictionary['Contact Details']];
     const validationSchemas = [
      
       Yup.object({
@@ -139,13 +139,12 @@ function Register() {
     // }, [activeStep]);
     const formContent = (step) => {
       switch (step) {
+      
         case 0:
-          return <IntroToRegistration formik={formik} />;
-        case 1:
           return <PersonalInfo formik={formik} />;
-        case 2:
+        case 1:
           return <Nationality formik={formik} />;
-        case 3:
+        case 2:
           return <ContactDetails formik={formik} />;
         default:
           return null;
@@ -174,7 +173,8 @@ function Register() {
             <div className="" style={{display:'flex',justifyContent:'center',width:isSmallScreen?'95%': '70%'}}>
                 
                 <Box className='bg-white p-2' 
-                style={{display:'flex', 
+                style={{display:'flex', boxShadow: '0 0 10px rgba(80, 79, 79, 0.5)',
+                                borderRadius: '5px',
                 alignItems:'center',justifyContent:'center',
                 flexDirection:'column',borderRadius:'5px',
                 backgroundColor:'rgba(0, 0, 0, 0.1)',

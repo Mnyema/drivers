@@ -17,13 +17,14 @@ function Footer() {
          justifyContent:'center',
          position:'fixed',
          bottom:'0',
+         borderTop:'1px solid #ccc',
             marginBottom:'0',
-             backgroundColor:'rgba(0,0,0,0.5)',
-             backdropFilter: 'blur(10px)',
-             WebkitBackdropFilter: 'blur(10px)',
+             //backgroundColor:'rgba(0,0,0,0.5)',
+             //backdropFilter: 'blur(10px)',
+             //WebkitBackdropFilter: 'blur(10px)',
          }}>
              <div className='copy-div h-full ' style={{flex:'3', height:'100%',display:'flex', alignItems:'center'}}>
-           <p className='ml-4 h-full text-yellow-500' style={{display:'flex', alignItems:'center', justifyContent:'center', height:'100%'}}>
+           <p className='ml-4 h-full ' style={{display:'flex', alignItems:'center', justifyContent:'center', height:'100%'}}>
              @ 2024 - Driver-Centric Theoretical Testing System</p> 
             </div>
             <div className='icon-div h-full' style={{flex:'2', height:'100%',display:'flex', alignItems:'center'}}>
@@ -36,7 +37,7 @@ function Footer() {
               alignItems:'center',
              justifyContent:'center',
               height:'100%',
-              color:'white',
+      
               marginTop:'0',
               margin:'0',
               padding:'0',

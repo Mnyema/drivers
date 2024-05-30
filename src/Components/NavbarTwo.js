@@ -36,7 +36,7 @@ useEffect(() => {
 const logout = () => {
   localStorage.removeItem('user');
   setUser(null);
-  navigate('/login');
+  navigate('/ingia');
 };
       const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -205,11 +205,11 @@ WebkitBackdropFilter: 'blur(10px)',
                         
                         
                         <li className='navi'><NavLink to="/profile" activeClassName="active-link">
-                            <span><ManageAccountsIcon fontSize='medium'/> </span>Profile
+                            <span><ManageAccountsIcon fontSize='medium'/> </span>{language === 'english' ? 'Profile' : 'Wasifu'}
                             </NavLink></li>
                         
-                        <li className='navi' onClick={logout}><NavLink to="/logout" activeClassName="active-link">
-                           <span><LogoutIcon fontSize='medium'/> </span> Logout
+                        <li className='navi' onClick={logout}><NavLink to="/ingia" activeClassName="active-link">
+                           <span><LogoutIcon fontSize='medium'/> </span> {language === 'english' ? 'Logout' : 'Toka'}
                             </NavLink></li>
                     </ul>
                     )}

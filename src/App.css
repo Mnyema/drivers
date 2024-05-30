@@ -359,15 +359,18 @@ body {
   background-color: white;
 }
 .register{
-  background-image: url(./Images/blurred-traffic-light-trails-road.jpg);
+  box-shadow: 0 0 10px rgba(80, 79, 79, 0.8);
+  border-radius: 5px;
+  
+}
+.landingp1{
+  background-image: url(./Images/pexels-carlos-oliva-3586966.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   
+  
 }
-.landing-page{
-  background-image: url(./Images/udart.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.nav-content{
+  background-color: rgb(19, 100, 220);
 }

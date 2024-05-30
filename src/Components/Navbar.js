@@ -129,9 +129,10 @@ const Navbar = () => {
              height:isSmallScreen?'fit-content':'',
              position:'fixed',
              marginBottom:'0',
-             backgroundColor:'rgba(0, 0, 0, 0.3)',
-             backdropFilter: 'blur(10px)',
-             WebkitBackdropFilter: 'blur(10px)', 
+             borderBottom:'1px solid #ccc',
+            // backgroundColor:'blue',
+             //backdropFilter: 'blur(10px)',
+            // WebkitBackdropFilter: 'blur(10px)', 
              }}>
            <span className={language === 'english' ? '' : 'hidden'}> <h1 className=' ml-5 font-mono text-xl   text-blue-100' style={{flex:'3'}}>Driver-Centric Theoretical Testing System</h1></span>
            <span className={language === 'swahili' ? '' : 'hidden'}> <h1 className=' ml-5 font-mono text-xl   text-blue-100' style={{flex:'3'}}>Mfumo wa Kupima Nadharia ya Udereva</h1></span>
